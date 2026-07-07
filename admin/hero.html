@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Hero Section</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./node_modules/cropperjs/dist/cropper.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item active"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Hero Section</h1>
+                    <p>Update homepage hero copy, background, and supporting collection tiles</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="split-layout">
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h4>Primary Hero</h4>
+                        <small class="muted">Main banner copy and CTA</small>
+                    </div>
+                    <form id="hero-form">
+                        <div class="form-group">
+                            <label for="heroTitle">Headline</label>
+                            <input type="text" class="form-control" id="heroTitle" placeholder="Oxidised for Women">
+                        </div>
+                        <div class="form-group">
+                            <label for="heroSub">Subheadline</label>
+                            <textarea class="form-control" id="heroSub" rows="3" placeholder="Handcrafted silver-tone pieces inspired by old-world artistry - necklaces, jhumkas, bangles, anklets, and giftable sets."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="heroCtaText">CTA Text</label>
+                                <input type="text" class="form-control" id="heroCtaText" placeholder="Shop the festive edit">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="heroCtaLink">CTA Link</label>
+                                <input type="text" class="form-control" id="heroCtaLink" placeholder="#products">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="heroBg">Background Image URL</label>
+                            <input type="text" class="form-control" id="heroBg" placeholder="img/banner/banner-1.jpg">
+                            <small class="muted d-block mt-2">You can also upload, crop, and store the hero image in Cloudinary.</small>
+                        </div>
+                        <div class="media-card mb-3" data-hero-upload="background" data-target-input="heroBg" data-aspect-ratio="0.75" data-crop-width="1200" data-crop-height="1600">
+                            <span class="thumb-badge">Hero Background Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="heroBgFile">Choose Image</label>
+                                <input type="file" class="form-control-file hero-file-input" id="heroBgFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost hero-upload-btn"><span class="fa fa-upload"></span> Upload to Cloudinary</button>
+                            </div>
+                            <small class="muted d-block mt-2 hero-upload-status">No image prepared yet.</small>
+                        </div>
+                        <button type="submit" class="btn btn-ox" id="saveHeroBtn">Save Hero</button>
+                    </form>
+                </div>
+                <aside class="preview-panel">
+                    <h4>Live Areas Covered</h4>
+                    <ul>
+                        <li>Main left-side hero headline and description</li>
+                        <li>Primary CTA destination for the homepage</li>
+                        <li>Large background artwork behind the feature panel</li>
+                    </ul>
+                    <div class="form-note" id="hero-status">Loading hero content from backend...</div>
+                </aside>
+            </section>
+
+            <section class="card form-card">
+                <div class="card-header">
+                    <h4>Supporting Collection Tiles</h4>
+                    <small class="muted">Four mini banners shown to the right of the hero</small>
+                </div>
+                <div class="mini-card-grid">
+                    <div class="mini-card">
+                        <h5>Tile 1</h5>
+                        <p>Statement Necklaces</p>
+                        <div class="form-group">
+                            <label for="tile1Title">Title</label>
+                            <input type="text" class="form-control" id="tile1Title" placeholder="Statement Necklaces">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile1Copy">Subtext</label>
+                            <input type="text" class="form-control" id="tile1Copy" placeholder="Artisanal chokers">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile1Image">Banner Image</label>
+                            <input type="text" class="form-control" id="tile1Image" placeholder="img/trend/ht-2.jpg">
+                        </div>
+                        <div class="media-card" data-hero-upload="tile1" data-target-input="tile1Image" data-aspect-ratio="0.85" data-crop-width="900" data-crop-height="1060">
+                            <span class="thumb-badge">Tile 1 Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="tile1ImageFile">Choose Image</label>
+                                <input type="file" class="form-control-file hero-file-input" id="tile1ImageFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost hero-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                            </div>
+                            <small class="muted d-block mt-2 hero-upload-status">No image prepared yet.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tile1Link">Banner Link</label>
+                            <input type="text" class="form-control" id="tile1Link" placeholder="#necklaces">
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <h5>Tile 2</h5>
+                        <p>Everyday Jhumkas</p>
+                        <div class="form-group">
+                            <label for="tile2Title">Title</label>
+                            <input type="text" class="form-control" id="tile2Title" placeholder="Everyday Jhumkas">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile2Copy">Subtext</label>
+                            <input type="text" class="form-control" id="tile2Copy" placeholder="Lightweight drops">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile2Image">Banner Image</label>
+                            <input type="text" class="form-control" id="tile2Image" placeholder="img/trend/ht-1.jpg">
+                        </div>
+                        <div class="media-card" data-hero-upload="tile2" data-target-input="tile2Image" data-aspect-ratio="0.85" data-crop-width="900" data-crop-height="1060">
+                            <span class="thumb-badge">Tile 2 Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="tile2ImageFile">Choose Image</label>
+                                <input type="file" class="form-control-file hero-file-input" id="tile2ImageFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost hero-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                            </div>
+                            <small class="muted d-block mt-2 hero-upload-status">No image prepared yet.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tile2Link">Banner Link</label>
+                            <input type="text" class="form-control" id="tile2Link" placeholder="#earrings">
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <h5>Tile 3</h5>
+                        <p>Stackable Bangles</p>
+                        <div class="form-group">
+                            <label for="tile3Title">Title</label>
+                            <input type="text" class="form-control" id="tile3Title" placeholder="Stackable Bangles">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile3Copy">Subtext</label>
+                            <input type="text" class="form-control" id="tile3Copy" placeholder="Oxidised cuffs">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile3Image">Banner Image</label>
+                            <input type="text" class="form-control" id="tile3Image" placeholder="img/product/product-3.jpg">
+                        </div>
+                        <div class="media-card" data-hero-upload="tile3" data-target-input="tile3Image" data-aspect-ratio="0.85" data-crop-width="900" data-crop-height="1060">
+                            <span class="thumb-badge">Tile 3 Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="tile3ImageFile">Choose Image</label>
+                                <input type="file" class="form-control-file hero-file-input" id="tile3ImageFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost hero-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                            </div>
+                            <small class="muted d-block mt-2 hero-upload-status">No image prepared yet.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tile3Link">Banner Link</label>
+                            <input type="text" class="form-control" id="tile3Link" placeholder="#bangles">
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <h5>Tile 4</h5>
+                        <p>Graceful Anklets</p>
+                        <div class="form-group">
+                            <label for="tile4Title">Title</label>
+                            <input type="text" class="form-control" id="tile4Title" placeholder="Graceful Anklets">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile4Copy">Subtext</label>
+                            <input type="text" class="form-control" id="tile4Copy" placeholder="Ghungroo accents">
+                        </div>
+                        <div class="form-group">
+                            <label for="tile4Image">Banner Image</label>
+                            <input type="text" class="form-control" id="tile4Image" placeholder="img/product/product-5.jpg">
+                        </div>
+                        <div class="media-card" data-hero-upload="tile4" data-target-input="tile4Image" data-aspect-ratio="0.85" data-crop-width="900" data-crop-height="1060">
+                            <span class="thumb-badge">Tile 4 Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="tile4ImageFile">Choose Image</label>
+                                <input type="file" class="form-control-file hero-file-input" id="tile4ImageFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost hero-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                            </div>
+                            <small class="muted d-block mt-2 hero-upload-status">No image prepared yet.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tile4Link">Banner Link</label>
+                            <input type="text" class="form-control" id="tile4Link" placeholder="#anklets">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-note">Use these tiles for the four small homepage collection banners beside the main hero.</div>
+            </section>
+        </main>
+    </div>
+    <div class="crop-modal" id="heroImageCropModal" hidden>
+        <div class="crop-modal__backdrop" data-close-hero-crop-modal></div>
+        <div class="crop-modal__panel">
+            <div class="crop-modal__header">
+                <div>
+                    <h4>Crop Hero Image</h4>
+                    <p class="muted mb-0">Crop the image to the fixed slot before uploading to Cloudinary.</p>
+                </div>
+                <button type="button" class="crop-modal__close" data-close-hero-crop-modal>&times;</button>
+            </div>
+            <div class="crop-modal__body">
+                <div class="crop-stage">
+                    <img id="heroCropperImage" alt="Hero crop preview">
+                </div>
+                <aside class="crop-sidebar">
+                    <div class="crop-preview-frame">
+                        <div class="crop-preview-box" id="heroCropPreviewBox"></div>
+                    </div>
+                    <small class="muted d-block">Preview shows the final uploaded crop for this hero slot.</small>
+                </aside>
+            </div>
+            <div class="crop-modal__footer">
+                <button type="button" class="btn btn-ghost" id="cancelHeroCropBtn">Cancel</button>
+                <button type="button" class="btn btn-ox" id="applyHeroCropBtn">Use Cropped Image</button>
+            </div>
+        </div>
+    </div>
+    <script src="./node_modules/cropperjs/dist/cropper.js"></script>
+    <script src="./hero-admin.js"></script>
+</body>
+</html>

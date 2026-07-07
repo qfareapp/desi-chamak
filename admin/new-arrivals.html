@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | New Arrivals</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item active"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>New Arrivals</h1>
+                    <p>Edit the main homepage product gallery and category chips</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="split-layout">
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h4>Section Copy</h4>
+                        <small class="muted">Heading and intro line</small>
+                    </div>
+                    <form id="new-arrivals-form">
+                        <div class="form-group">
+                            <label for="arrivalTitle">Section Heading</label>
+                            <input type="text" class="form-control" id="arrivalTitle" placeholder="New Arrivals">
+                        </div>
+                        <div class="form-group">
+                            <label for="arrivalCopy">Intro Copy</label>
+                            <textarea class="form-control" id="arrivalCopy" rows="3" placeholder="Oxidised essentials curated for women."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="arrivalCta">Default CTA Anchor</label>
+                            <input type="text" class="form-control" id="arrivalCta" placeholder="#products">
+                        </div>
+                        <button type="submit" class="btn btn-ox" id="saveArrivalsBtn">Save Section</button>
+                    </form>
+                </div>
+                <aside class="preview-panel">
+                    <h4>Filter Tabs</h4>
+                    <p class="muted mb-3">Drag filters by the handle to change their serial order.</p>
+                    <div id="arrival-filters-editor"></div>
+                    <button type="button" class="btn btn-ghost mt-3" id="addArrivalFilterBtn"><span class="fa fa-plus"></span> Add Filter</button>
+                    <p class="muted mb-0 mt-3" id="arrival-status">Loading new arrivals content from backend...</p>
+                </aside>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Selected Products</h4>
+                    <button type="button" class="btn btn-ghost" id="saveArrivalsSelectionBtn"><span class="fa fa-save"></span> Save Selected Products</button>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="arrivalSelectedProductsBody">
+                            <tr>
+                                <td colspan="5" class="text-center muted">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-note">Products are selected from the central product management catalog. Use drag and drop in the selected list to change storefront order.</div>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Available Products</h4>
+                    <small class="muted">Choose from the master product list</small>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="arrivalProductPoolBody">
+                            <tr>
+                                <td colspan="5" class="text-center muted">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./new-arrivals-admin.js"></script>
+</body>
+</html>

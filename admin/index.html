@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Dashboard</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li class="active"><span class="fa fa-dashboard"></span> Dashboard</li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Quick overview of store health</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="cards row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card kpi">
+                        <p class="label">Today’s Orders</p>
+                        <h3>128</h3>
+                        <span class="trend positive"><i class="fa fa-arrow-up"></i> 6%</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card kpi">
+                        <p class="label">Revenue</p>
+                        <h3>₹ 2.8L</h3>
+                        <span class="trend positive"><i class="fa fa-arrow-up"></i> 4%</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card kpi">
+                        <p class="label">Pending Shipments</p>
+                        <h3>42</h3>
+                        <span class="trend neutral"><i class="fa fa-minus"></i> on track</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card kpi">
+                        <p class="label">Low Stock SKUs</p>
+                        <h3>8</h3>
+                        <span class="trend negative"><i class="fa fa-arrow-down"></i> restock</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Recent Orders</h4>
+                    <a class="link" href="#">View all</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Placed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#1024</td>
+                                <td>Ananya K.</td>
+                                <td>3</td>
+                                <td>₹ 3,299</td>
+                                <td><span class="badge badge-success">Paid</span></td>
+                                <td>Today, 10:12</td>
+                            </tr>
+                            <tr>
+                                <td>#1023</td>
+                                <td>Rhea S.</td>
+                                <td>1</td>
+                                <td>₹ 1,899</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>Today, 09:50</td>
+                            </tr>
+                            <tr>
+                                <td>#1022</td>
+                                <td>Maya T.</td>
+                                <td>2</td>
+                                <td>₹ 2,299</td>
+                                <td><span class="badge badge-info">Processing</span></td>
+                                <td>Yesterday</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-lg-6">
+                    <div class="card list-card">
+                        <div class="card-header">
+                            <h4>Top Products</h4>
+                        </div>
+                        <ul class="list-unstyled mb-0">
+                            <li><span>Lotus Coin Haar Set</span><span class="muted">112 sold</span></li>
+                            <li><span>Mirror Chandbalis</span><span class="muted">94 sold</span></li>
+                            <li><span>Temple Kada Stack</span><span class="muted">81 sold</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card list-card">
+                        <div class="card-header">
+                            <h4>Tasks</h4>
+                        </div>
+                        <ul class="list-unstyled mb-0">
+                            <li><span>Approve 6 return requests</span><span class="muted">Today</span></li>
+                            <li><span>Restock Mirror Chandbalis</span><span class="muted">2 days</span></li>
+                            <li><span>Schedule festive banner</span><span class="muted">This week</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

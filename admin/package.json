@@ -1,0 +1,13 @@
+{
+  "name": "@desi-chamak/admin",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static admin panel for the Desi Chamak ecommerce site",
+  "scripts": {
+    "dev": "python -m http.server 3000 --directory ..",
+    "start": "python -m http.server 3000 --directory .."
+  },
+  "dependencies": {
+    "cropperjs": "^1.6.2"
+  }
+}

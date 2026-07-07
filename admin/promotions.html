@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Banners & Offers</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./node_modules/cropperjs/dist/cropper.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item active"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Banners & Offers</h1>
+                    <p>Edit homepage campaign banners, slider cards, and the discount block</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="card form-card">
+                <div class="card-header">
+                    <h4>Banner Slider</h4>
+                    <small class="muted">Homepage carousel cards</small>
+                </div>
+                <div class="mini-card-grid">
+                    <div class="mini-card">
+                        <div class="banner-preview">
+                            <span>Signature Edit</span>
+                            <h3>Silver Shadows</h3>
+                            <p>Shop now</p>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="slide1Title">Slide Title</label>
+                            <input type="text" class="form-control" id="slide1Title" placeholder="Silver Shadows">
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="banner-preview">
+                            <span>Gifting Ready</span>
+                            <h3>Curated Sets</h3>
+                            <p>Build a box</p>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="slide2Title">Slide Title</label>
+                            <input type="text" class="form-control" id="slide2Title" placeholder="Curated Sets">
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="banner-preview">
+                            <span>Festive Drop</span>
+                            <h3>Temple Coins</h3>
+                            <p>Discover</p>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="slide3Title">Slide Title</label>
+                            <input type="text" class="form-control" id="slide3Title" placeholder="Temple Coins">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="split-layout">
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h4>Discount Banner</h4>
+                        <small class="muted">Limited-offer artwork and CTA</small>
+                    </div>
+                    <form id="promotionsForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="discountLabel">Label</label>
+                                <input type="text" class="form-control" id="discountLabel" placeholder="Limited Offer">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="discountPercent">Discount Percent</label>
+                                <input type="number" class="form-control" id="discountPercent" placeholder="20" min="1" max="95">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountTitle">Headline</label>
+                            <input type="text" class="form-control" id="discountTitle" placeholder="Festive Oxidised">
+                        </div>
+                        <div class="form-group">
+                            <label for="discountImage">Banner Image URL</label>
+                            <input type="text" class="form-control" id="discountImage" placeholder="img/discount.jpg">
+                            <small class="muted d-block mt-2">Or upload directly from your phone or laptop. The image will be cropped to the banner frame and stored in Cloudinary.</small>
+                        </div>
+                        <div class="form-group" data-upload-segment="discount-banner" data-aspect-ratio="1.5" data-crop-width="1200" data-crop-height="800">
+                            <label for="discountImageFile">Upload Banner Image</label>
+                            <input type="file" class="form-control-file" id="discountImageFile" accept="image/*">
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost" id="uploadDiscountImageBtn"><span class="fa fa-upload"></span> Upload to Cloudinary</button>
+                            </div>
+                            <small class="muted d-block mt-2" id="discountImageUploadStatus">No image prepared yet.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountCta">CTA Link</label>
+                            <input type="text" class="form-control" id="discountCta" placeholder="limited-offer.html">
+                        </div>
+                        <div class="inline-actions">
+                            <button type="submit" class="btn btn-ox" id="savePromotionsBtn">Save Banner</button>
+                        </div>
+                    </form>
+                </div>
+                <aside class="preview-panel">
+                    <h4>Countdown Blocks</h4>
+                    <div class="form-group">
+                        <label for="countdownDate">Countdown End Date</label>
+                        <input type="date" class="form-control" id="countdownDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="countdownTime">Countdown End Time</label>
+                        <input type="time" class="form-control" id="countdownTime">
+                    </div>
+                    <div class="pill-row">
+                        <span class="pill">Days</span>
+                        <span class="pill">Hour</span>
+                        <span class="pill">Min</span>
+                        <span class="pill">Sec</span>
+                    </div>
+                    <p class="muted mb-0" id="promotionsStatus">Loading promotions from backend...</p>
+                </aside>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Limited Offer Products</h4>
+                    <button type="button" class="btn btn-ghost" id="saveOfferProductsBtn"><span class="fa fa-save"></span> Save Offer Products</button>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Original Price</th>
+                                <th>Offer Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="offerSelectedProductsBody">
+                            <tr><td colspan="4" class="text-center muted">Loading selected products...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Available Products</h4>
+                    <small class="muted">Select products to include on the limited-offer page</small>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Original Price</th>
+                                <th>Offer Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="offerProductPoolBody">
+                            <tr><td colspan="5" class="text-center muted">Loading products...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="crop-modal" id="imageCropModal" hidden>
+        <div class="crop-modal__backdrop" data-close-crop-modal></div>
+        <div class="crop-modal__panel">
+            <div class="crop-modal__header">
+                <div>
+                    <h4>Crop Banner Image</h4>
+                    <p class="muted mb-0">Keep the image inside the fixed 3:2 banner frame before upload.</p>
+                </div>
+                <button type="button" class="crop-modal__close" data-close-crop-modal>&times;</button>
+            </div>
+            <div class="crop-modal__body">
+                <div class="crop-stage">
+                    <img id="cropperImage" alt="Crop preview">
+                </div>
+                <aside class="crop-sidebar">
+                    <div class="crop-preview-frame">
+                        <div class="crop-preview-box" id="cropPreviewBox"></div>
+                    </div>
+                    <small class="muted d-block">Preview shows the final banner slot ratio.</small>
+                </aside>
+            </div>
+            <div class="crop-modal__footer">
+                <button type="button" class="btn btn-ghost" id="cancelCropBtn">Cancel</button>
+                <button type="button" class="btn btn-ox" id="applyCropBtn">Use Cropped Image</button>
+            </div>
+        </div>
+    </div>
+    <script src="./node_modules/cropperjs/dist/cropper.js"></script>
+    <script src="./promotions-admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "desi-chamak-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo for the Desi Chamak storefront, admin panel, and backend.",
+  "workspaces": [
+    "admin",
+    "backend"
+  ],
+  "scripts": {
+    "dev:admin": "npm run dev --workspace @desi-chamak/admin",
+    "dev:backend": "npm run dev --workspace @desi-chamak/backend",
+    "start:admin": "npm run start --workspace @desi-chamak/admin",
+    "start:backend": "npm run start --workspace @desi-chamak/backend",
+    "install:all": "npm install --workspaces"
+  }
+}

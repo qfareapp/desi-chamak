@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Website</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item active"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Website Content</h1>
+                    <p>Manage the homepage sections from one place</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="website-grid">
+                <div class="card section-stat">
+                    <p class="label">Editable areas</p>
+                    <h3>6 sections</h3>
+                    <small class="muted">Hero, product grids, curated lists, and campaign blocks</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Homepage products</p>
+                    <h3>18 slots</h3>
+                    <small class="muted">Across New Arrivals, Curated, Best Sellers, and Gift Ready</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Promo surfaces</p>
+                    <h3>4 banners</h3>
+                    <small class="muted">Hero support tiles, slider cards, and festive discount block</small>
+                </div>
+            </section>
+
+            <section class="section-list">
+                <article class="card section-toggle-card" data-section-key="hero" data-section-title="Hero Section" data-section-description="Homepage hero section visibility">
+                    <div class="section-toggle-head">
+                        <h4>Hero Section</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Change the headline, CTA, background, and the four supporting collection tiles at the top of the homepage.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="hero.html">Open editor</a>
+                    </div>
+                </article>
+                <article class="card section-toggle-card" data-section-key="new-arrivals" data-section-title="New Arrivals" data-section-description="Homepage new arrivals section visibility">
+                    <div class="section-toggle-head">
+                        <h4>New Arrivals</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Update section copy, category chips, and featured product cards with add/remove controls for the homepage grid.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="new-arrivals.html">Open editor</a>
+                    </div>
+                </article>
+                <article class="card section-toggle-card" data-section-key="curated" data-section-title="Curated Sets" data-section-description="Homepage curated trend column visibility">
+                    <div class="section-toggle-head">
+                        <h4>Curated Sets</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Control the curated set column in the trend area, including titles, images, pricing, and product ordering.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="curated.html">Open editor</a>
+                    </div>
+                </article>
+                <article class="card section-toggle-card" data-section-key="best-sellers" data-section-title="Best Sellers" data-section-description="Homepage best sellers trend column visibility">
+                    <div class="section-toggle-head">
+                        <h4>Best Sellers</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Swap out best-performing products, update copy, and maintain the bestseller list shown in the trend area.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="best-sellers.html">Open editor</a>
+                    </div>
+                </article>
+                <article class="card section-toggle-card" data-section-key="gift-ready" data-section-title="Gift Ready" data-section-description="Homepage gift ready trend column visibility">
+                    <div class="section-toggle-head">
+                        <h4>Gift Ready</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Manage the third trend column with gifting-focused products, imagery, and pricing shown on the homepage.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="gift-ready.html">Open editor</a>
+                    </div>
+                </article>
+                <article class="card section-toggle-card" data-section-key="promotions" data-section-title="Banners & Offers" data-section-description="Homepage promotions and discount block visibility">
+                    <div class="section-toggle-head">
+                        <h4>Banners & Offers</h4>
+                        <label class="switch">
+                            <input type="checkbox" class="homepage-section-toggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <p>Edit slider banners, limited-offer art, countdown labels, and the promotional CTA shown lower on the homepage.</p>
+                    <div class="link-row">
+                        <span class="muted section-toggle-status">Loading...</span>
+                        <a href="promotions.html">Open editor</a>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+    <script src="./website-admin.js"></script>
+</body>
+</html>

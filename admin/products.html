@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Product Management</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./node_modules/cropperjs/dist/cropper.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li class="active"><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Product Management</h1>
+                    <p>Manage product detail content, media, pricing, specs, reviews, and related products</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="stat-grid">
+                <div class="card section-stat">
+                    <p class="label">Active products</p>
+                    <h3 id="product-stat-active">0</h3>
+                    <small class="muted" id="product-stat-stock">0 in stock, 0 low inventory</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Featured on home</p>
+                    <h3 id="product-stat-featured">0</h3>
+                    <small class="muted">Products with badges or related placements</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Draft edits</p>
+                    <h3 id="product-stat-draft">0</h3>
+                    <small class="muted">Pending publish after product review</small>
+                </div>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Catalog</h4>
+                    <button type="button" class="btn btn-ghost" id="addProductBtn"><span class="fa fa-plus"></span> Add Product</button>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="catalogTableBody">
+                            <tr>
+                                <td colspan="7" class="text-center muted">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="split-layout">
+                <div>
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Core Product Details</h4>
+                            <small class="muted">Fields mapped from the storefront product-details page</small>
+                        </div>
+                        <form id="productForm">
+                            <input type="hidden" id="productId">
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <label for="productName">Product Name</label>
+                                    <input type="text" class="form-control" id="productName" placeholder="Lotus Coin Haar Set">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="productSku">SKU</label>
+                                    <input type="text" class="form-control" id="productSku" placeholder="AAR-NK-101">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="productSubtitle">Subtitle</label>
+                                    <input type="text" class="form-control" id="productSubtitle" placeholder="Handcrafted oxidised necklace with jhumkas">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="productCategory">Category</label>
+                                    <select class="form-control" id="productCategory">
+                                        <option value="">Select Category</option>
+                                        <option value="Necklaces">Necklaces</option>
+                                        <option value="Earrings">Earrings</option>
+                                        <option value="Bangles">Bangles</option>
+                                        <option value="Anklets">Anklets</option>
+                                        <option value="Gift Sets">Gift Sets</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="productCost">Cost / Original Price</label>
+                                    <input type="text" class="form-control" id="productCost" placeholder="Rs. 2,199">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="productPrice">Selling Price</label>
+                                    <input type="text" class="form-control" id="productPrice" placeholder="Rs. 1,899">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="productCompare">Strike-through Price</label>
+                                    <input type="text" class="form-control" id="productCompare" placeholder="Rs. 2,199">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="productReviews">Review Count</label>
+                                    <input type="text" class="form-control" id="productReviews" placeholder="132">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="productSummary">Summary</label>
+                                <textarea class="form-control" id="productSummary" rows="3" placeholder="Old-world coins meet a lotus motif in this oxidised finish set. Lightweight alloy, nickel safe plating, and an adjustable dori for perfect layering on kurtas or saris."></textarea>
+                            </div>
+                            <div class="inline-actions">
+                                <button type="submit" class="btn btn-ox" id="saveProductBtn">Save Product</button>
+                                <button type="button" class="btn btn-ghost" id="resetProductBtn">Reset</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Gallery & Media</h4>
+                            <small class="muted">Primary card image plus detail gallery thumbnails</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrimaryImage">Primary Image URL</label>
+                            <input type="text" class="form-control" id="productPrimaryImage" placeholder="img/product/product-1.jpg">
+                            <small class="muted d-block mt-2">You can also upload, crop, and store this image directly in Cloudinary.</small>
+                        </div>
+                        <div class="media-card mb-3" data-media-upload="primary" data-target-input="productPrimaryImage" data-aspect-ratio="1" data-crop-width="1200" data-crop-height="1200">
+                            <span class="thumb-badge">Primary Upload</span>
+                            <div class="form-group mt-3 mb-2">
+                                <label for="productPrimaryImageFile">Choose Image</label>
+                                <input type="file" class="form-control-file" id="productPrimaryImageFile" accept="image/*">
+                            </div>
+                            <div class="inline-actions mt-3">
+                                <button type="button" class="btn btn-ghost media-upload-btn"><span class="fa fa-upload"></span> Upload to Cloudinary</button>
+                            </div>
+                            <small class="muted d-block mt-2 media-upload-status">No image prepared yet.</small>
+                        </div>
+                        <div class="media-strip">
+                            <div class="media-card" data-media-upload="thumb1" data-target-input="thumb1" data-aspect-ratio="1" data-crop-width="1200" data-crop-height="1200">
+                                <span class="thumb-badge">Thumb 1</span>
+                                <div class="form-group mb-0">
+                                    <label for="thumb1">Image URL</label>
+                                    <input type="text" class="form-control" id="thumb1" placeholder="img/product/details/thumb-1.jpg">
+                                </div>
+                                <div class="form-group mt-3 mb-2">
+                                    <label for="thumb1File">Choose Image</label>
+                                    <input type="file" class="form-control-file media-file-input" id="thumb1File" accept="image/*">
+                                </div>
+                                <div class="inline-actions mt-3">
+                                    <button type="button" class="btn btn-ghost media-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                                </div>
+                                <small class="muted d-block mt-2 media-upload-status">No image prepared yet.</small>
+                            </div>
+                            <div class="media-card" data-media-upload="thumb2" data-target-input="thumb2" data-aspect-ratio="1" data-crop-width="1200" data-crop-height="1200">
+                                <span class="thumb-badge">Thumb 2</span>
+                                <div class="form-group mb-0">
+                                    <label for="thumb2">Image URL</label>
+                                    <input type="text" class="form-control" id="thumb2" placeholder="img/product/details/thumb-2.jpg">
+                                </div>
+                                <div class="form-group mt-3 mb-2">
+                                    <label for="thumb2File">Choose Image</label>
+                                    <input type="file" class="form-control-file media-file-input" id="thumb2File" accept="image/*">
+                                </div>
+                                <div class="inline-actions mt-3">
+                                    <button type="button" class="btn btn-ghost media-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                                </div>
+                                <small class="muted d-block mt-2 media-upload-status">No image prepared yet.</small>
+                            </div>
+                            <div class="media-card" data-media-upload="thumb3" data-target-input="thumb3" data-aspect-ratio="1" data-crop-width="1200" data-crop-height="1200">
+                                <span class="thumb-badge">Thumb 3</span>
+                                <div class="form-group mb-0">
+                                    <label for="thumb3">Image URL</label>
+                                    <input type="text" class="form-control" id="thumb3" placeholder="img/product/details/thumb-3.jpg">
+                                </div>
+                                <div class="form-group mt-3 mb-2">
+                                    <label for="thumb3File">Choose Image</label>
+                                    <input type="file" class="form-control-file media-file-input" id="thumb3File" accept="image/*">
+                                </div>
+                                <div class="inline-actions mt-3">
+                                    <button type="button" class="btn btn-ghost media-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                                </div>
+                                <small class="muted d-block mt-2 media-upload-status">No image prepared yet.</small>
+                            </div>
+                            <div class="media-card" data-media-upload="thumb4" data-target-input="thumb4" data-aspect-ratio="1" data-crop-width="1200" data-crop-height="1200">
+                                <span class="thumb-badge">Thumb 4</span>
+                                <div class="form-group mb-0">
+                                    <label for="thumb4">Image URL</label>
+                                    <input type="text" class="form-control" id="thumb4" placeholder="img/product/details/thumb-4.jpg">
+                                </div>
+                                <div class="form-group mt-3 mb-2">
+                                    <label for="thumb4File">Choose Image</label>
+                                    <input type="file" class="form-control-file media-file-input" id="thumb4File" accept="image/*">
+                                </div>
+                                <div class="inline-actions mt-3">
+                                    <button type="button" class="btn btn-ghost media-upload-btn"><span class="fa fa-upload"></span> Upload</button>
+                                </div>
+                                <small class="muted d-block mt-2 media-upload-status">No image prepared yet.</small>
+                            </div>
+                        </div>
+                        <div class="form-note">This matches the four-thumbnail gallery used on [product-details.html](/abs/path/D:/e%20commerce/e%20commerce/product-details.html).</div>
+                    </section>
+
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Widget Details</h4>
+                            <small class="muted">Availability, finish, dimensions, in-box, and promotions</small>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="availability">Availability</label>
+                                <input type="text" class="form-control" id="availability" placeholder="In stock - dispatches in 48h">
+                            </div>
+                            <div class="form-group">
+                                <label for="finish">Finish</label>
+                                <input type="text" class="form-control" id="finish" placeholder="Oxidised silver tone, nickel safe">
+                            </div>
+                            <div class="form-group">
+                                <label for="dimensions">Dimensions</label>
+                                <input type="text" class="form-control" id="dimensions" placeholder="Necklace drop 28 cm (adjustable), earrings drop 5.5 cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="inBox">In the Box</label>
+                                <input type="text" class="form-control" id="inBox" placeholder="Necklace + jhumka pair + care card">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label for="promotionLine">Promotions</label>
+                                <input type="text" class="form-control" id="promotionLine" placeholder="Free shipping above Rs. 999">
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <aside>
+                    <section class="preview-panel">
+                        <h4>Detail Page Structure</h4>
+                        <ul class="check-list">
+                            <li>Hero gallery with 4 thumbnails and slider images</li>
+                            <li>Product title, subtitle, rating, prices, and short summary</li>
+                            <li>Widget list for availability, finish, dimensions, box contents, and promotions</li>
+                            <li>Tabbed content for description, specification, and reviews</li>
+                            <li>Related products strip with 4 cards</li>
+                        </ul>
+                    </section>
+
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Inventory</h4>
+                            <small class="muted">Operational values</small>
+                        </div>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="stockQty">Stock Qty</label>
+                                    <input type="text" class="form-control" id="stockQty" placeholder="32">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" id="status">
+                                        <option value="live">Live</option>
+                                        <option value="draft">Draft</option>
+                                        <option value="sold-out">Sold Out</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="badge">Badge</label>
+                                <input type="text" class="form-control" id="badge" placeholder="New">
+                            </div>
+                            <div class="form-group mb-0">
+                                <label for="dispatch">Dispatch SLA</label>
+                                <input type="text" class="form-control" id="dispatch" placeholder="48h">
+                            </div>
+                        </form>
+                    </section>
+                </aside>
+            </section>
+
+            <section class="card form-card">
+                <div class="card-header">
+                    <h4>Tabbed Content</h4>
+                    <small class="muted">Description, specification, and review blocks</small>
+                </div>
+                <div class="tab-chip-row">
+                    <span class="pill">Description</span>
+                    <span class="pill">Specification</span>
+                    <span class="pill">Reviews</span>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="descriptionTab">Description</label>
+                        <textarea class="form-control" id="descriptionTab" rows="4" placeholder="This oxidised lotus coin haar pairs a statement collar with lightweight jhumkas. Each piece is plated for the antique silver look and finished with ghungroo accents for movement."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="specTab">Specification</label>
+                        <textarea class="form-control" id="specTab" rows="4" placeholder="Base metal: brass alloy, nickel safe; Plating: oxidised silver; Closure: adjustable dori + push-back earrings; Weight: necklace 86 g, earrings 12 g each."></textarea>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="reviewTab">Reviews</label>
+                        <textarea class="form-control" id="reviewTab" rows="4" placeholder="Beautiful finish, sat perfectly on my sari blouse and did not feel heavy."></textarea>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Related Products</h4>
+                    <button type="button" class="btn btn-ghost" id="addRelatedProductBtn"><span class="fa fa-plus"></span> Add Related Product</button>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Badge</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="relatedProductsTableBody">
+                            <tr>
+                                <td colspan="5" class="text-center muted">Select a product to manage related products.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-note" id="productsStatus">Loading product catalog from backend...</div>
+            </section>
+        </main>
+    </div>
+    <div class="crop-modal" id="productImageCropModal" hidden>
+        <div class="crop-modal__backdrop" data-close-product-crop-modal></div>
+        <div class="crop-modal__panel">
+            <div class="crop-modal__header">
+                <div>
+                    <h4>Crop Product Image</h4>
+                    <p class="muted mb-0">Crop the image to the fixed media slot before uploading to Cloudinary.</p>
+                </div>
+                <button type="button" class="crop-modal__close" data-close-product-crop-modal>&times;</button>
+            </div>
+            <div class="crop-modal__body">
+                <div class="crop-stage">
+                    <img id="productCropperImage" alt="Product crop preview">
+                </div>
+                <aside class="crop-sidebar">
+                    <div class="crop-preview-frame">
+                        <div class="crop-preview-box" id="productCropPreviewBox"></div>
+                    </div>
+                    <small class="muted d-block">Preview shows the final uploaded crop for this media slot.</small>
+                </aside>
+            </div>
+            <div class="crop-modal__footer">
+                <button type="button" class="btn btn-ghost" id="cancelProductCropBtn">Cancel</button>
+                <button type="button" class="btn btn-ox" id="applyProductCropBtn">Use Cropped Image</button>
+            </div>
+        </div>
+    </div>
+    <script src="./node_modules/cropperjs/dist/cropper.js"></script>
+    <script src="./products-admin.js"></script>
+</body>
+</html>

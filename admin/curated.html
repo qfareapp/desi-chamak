@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Curated Sets</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body data-section-key="curated" data-note-key="anchorId" data-title-default="Curated sets" data-note-default="journal">
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item active"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h1>Curated Sets</h1>
+                    <p>Manage the first trend column on the homepage</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="split-layout">
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h4>Section Settings</h4>
+                        <small class="muted">Title and display order</small>
+                    </div>
+                    <form id="section-products-form">
+                        <div class="form-group">
+                            <label for="curatedTitle">Column Heading</label>
+                            <input type="text" class="form-control" id="curatedTitle" placeholder="Curated sets">
+                        </div>
+                        <div class="form-group">
+                            <label for="curatedAnchor">Anchor ID</label>
+                            <input type="text" class="form-control" id="curatedAnchor" placeholder="journal">
+                        </div>
+                        <button type="submit" class="btn btn-ox" id="saveSectionProductsBtn">Save Section</button>
+                    </form>
+                </div>
+                <aside class="preview-panel">
+                    <div class="banner-preview">
+                        <span>Trend Section</span>
+                        <h3>Curated sets</h3>
+                        <p>Three handpicked looks with image, price, and rating.</p>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Selected Products</h4>
+                    <button type="button" class="btn btn-ghost" id="saveSelectedProductsBtn"><span class="fa fa-save"></span> Save Selected Products</button>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sectionSelectedProductsBody">
+                            <tr><td colspan="4" class="text-center muted">Loading selected products...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Available Products</h4>
+                    <small class="muted">Select from Product Management catalog</small>
+                </div>
+                <div class="table-dark-shell">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>SKU</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sectionProductPoolBody">
+                            <tr><td colspan="5" class="text-center muted">Loading products...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-note" id="sectionProductsStatus">Loading section from backend...</div>
+            </section>
+        </main>
+    </div>
+    <script src="./section-products-admin.js"></script>
+</body>
+</html>
