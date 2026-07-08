@@ -21,7 +21,7 @@ npm run dev:backend
 
 - Vercel: deploy the repository root for the static storefront and admin pages
 - Render: deploy the backend using `render.yaml`
-- Vercel environment variable: set `RENDER_BACKEND_ORIGIN` to your Render backend URL, for example `https://desi-chamak-api.onrender.com`
+- Vercel rewrite config is in `vercel.json` and forwards `/api/*` to `https://desi-chamak.onrender.com`
 ```
 
 ## Git structure
