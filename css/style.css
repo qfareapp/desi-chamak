@@ -4256,17 +4256,35 @@ body {
     height: 320px;
 }
 
-.trend .product__item__text {
-    text-align: center;
-}
-
-.trend .product__item__text .rating {
+/* Remove Bootstrap row negative margins so cards don't bleed to screen edges */
+#trend-curated-items > .row,
+#trend-best-sellers-items > .row,
+#trend-gift-ready-items > .row {
+    margin-left: 0;
+    margin-right: 0;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+}
+
+/* Force card text centre-aligned regardless of inherited styles */
+.trend .product__item__text,
+.trend .product__item__text h6,
+.trend .product__item__text h6 a {
+    text-align: center !important;
+}
+
+.trend .product__item__text .rating {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.trend .product__item__text .product__price {
+    text-align: center;
 }
 
 /* Mobile tweaks */
