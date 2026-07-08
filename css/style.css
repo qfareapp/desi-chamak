@@ -4251,23 +4251,41 @@ body {
     display: block;
 }
 
-/* Product cards inside trend section — same as new arrivals */
+/* Hide duplicate section heading — tab bar already labels each panel */
+.trend .section-title {
+    display: none;
+}
+
+/* Product image height */
 .trend .product__item__pic {
     height: 320px;
 }
 
-/* Remove Bootstrap row negative margins so cards don't bleed to screen edges */
+/* CSS Grid layout: equal card widths, symmetric gutters, no Bootstrap col offsets */
 #trend-curated-items > .row,
 #trend-best-sellers-items > .row,
 #trend-gift-ready-items > .row {
-    margin-left: 0;
-    margin-right: 0;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 10px 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0;
 }
 
-/* Force card text centre-aligned regardless of inherited styles */
+/* Reset Bootstrap col-6 so it behaves as a grid item */
+#trend-curated-items > .row > .col-6,
+#trend-best-sellers-items > .row > .col-6,
+#trend-gift-ready-items > .row > .col-6 {
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    -webkit-box-flex: unset;
+        -ms-flex: unset;
+            flex: unset;
+}
+
+/* Centre card text */
 .trend .product__item__text,
 .trend .product__item__text h6,
 .trend .product__item__text h6 a {
@@ -4304,7 +4322,11 @@ body {
     }
 
     .trend .product__item__pic {
-        height: 200px;
+        height: 230px;
+    }
+
+    .trend .product__item__text {
+        padding-top: 10px;
     }
 
     .trend .product__item__text h6 {
