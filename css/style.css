@@ -4256,6 +4256,19 @@ body {
     height: 320px;
 }
 
+.trend .product__item__text {
+    text-align: center;
+}
+
+.trend .product__item__text .rating {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
 /* Mobile tweaks */
 @media only screen and (max-width: 767px) {
     .trend-tab-bar {
