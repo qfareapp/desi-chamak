@@ -16,6 +16,12 @@ Run these from the repository root:
 npm install
 npm run dev:admin
 npm run dev:backend
+
+## Deployment
+
+- Vercel: deploy the repository root for the static storefront and admin pages
+- Render: deploy the backend using `render.yaml`
+- Vercel environment variable: set `RENDER_BACKEND_ORIGIN` to your Render backend URL, for example `https://desi-chamak-api.onrender.com`
 ```
 
 ## Git structure

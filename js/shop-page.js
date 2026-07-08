@@ -1,5 +1,5 @@
 (function () {
-    var API_BASE = "http://localhost:5000/api";
+    var API_BASE = window.DesiChamakApi ? window.DesiChamakApi.base() : "http://localhost:5000/api";
     var DEFAULT_IMAGE = "img/product/product-1.jpg";
     var defaultFilters = [
         { label: "All", filterClass: "*", anchorId: "", active: true },

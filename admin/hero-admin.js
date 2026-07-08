@@ -1,5 +1,5 @@
 (function () {
-    var API_BASE = "http://localhost:5000/api";
+    var API_BASE = window.DesiChamakApi ? window.DesiChamakApi.base() : "http://localhost:5000/api";
     var heroDefaults = {
         title: "Oxidised for Women",
         subheadline: "Handcrafted silver-tone pieces inspired by old-world artistry - necklaces, jhumkas, bangles, anklets, and giftable sets.",
