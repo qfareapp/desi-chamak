@@ -4201,3 +4201,136 @@ body {
     .discount__text { padding: 30px 16px 28px; }
     .discount__text__title h2 { font-size: 38px; }
 }
+
+/* =============================================
+   Trend Section — Mobile Tab Interface
+   ============================================= */
+
+/* Tab bar: hidden on desktop, shown on mobile */
+.trend-tab-bar {
+    display: none;
+}
+
+@media only screen and (max-width: 767px) {
+
+    /* Cancel the old horizontal-scroll behaviour */
+    .trend .container > .row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        overflow-x: visible;
+        gap: 0;
+        scroll-snap-type: none;
+        -webkit-overflow-scrolling: auto;
+        padding-bottom: 0;
+    }
+    .trend .container > .row > [class*="col-"] {
+        -webkit-box-flex: 0;
+            -ms-flex: 0 0 100%;
+                flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        scroll-snap-align: none;
+    }
+
+    /* All columns hidden; JS adds .trend-tab-active to the visible one */
+    .trend .col-lg-4 {
+        display: none;
+    }
+    .trend .col-lg-4.trend-tab-active {
+        display: block;
+    }
+
+    /* ── Tab bar ── */
+    .trend-tab-bar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        gap: 0;
+    }
+
+    .trend-tab {
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        padding: 11px 6px 12px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        color: #888;
+        cursor: pointer;
+        -webkit-transition: color 0.2s ease, border-color 0.2s ease;
+                transition: color 0.2s ease, border-color 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        white-space: nowrap;
+    }
+    .trend-tab:focus { outline: none; }
+    .trend-tab.active {
+        color: #ca1515;
+        border-bottom-color: #ca1515;
+    }
+
+    /* ── Active panel: clean list rows ── */
+    .trend-tab-active .trend__item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        margin-bottom: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .trend-tab-active .trend__item:last-child {
+        border-bottom: none;
+    }
+    .trend-tab-active .trend__item__pic {
+        float: none;
+        margin-right: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0;
+    }
+    .trend-tab-active .trend__item__pic img {
+        width: 68px;
+        height: 68px;
+        -o-object-fit: cover;
+           object-fit: cover;
+        border-radius: 6px;
+        display: block;
+    }
+    .trend-tab-active .trend__item__text {
+        overflow: visible;
+    }
+    .trend-tab-active .trend__item__text h6 {
+        font-size: 13px;
+        line-height: 1.35;
+        margin-bottom: 4px;
+    }
+    .trend-tab-active .trend__item__text .product__price {
+        font-size: 13px;
+    }
+    .trend-tab-active .trend__item__text .rating i {
+        font-size: 9px;
+    }
+
+    /* Section title inside active panel */
+    .trend-tab-active .section-title {
+        margin-bottom: 4px;
+    }
+    .trend-tab-active .section-title h4 {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+}

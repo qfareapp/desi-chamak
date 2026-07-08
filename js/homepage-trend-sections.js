@@ -142,7 +142,6 @@
 
     function updateTrendVisibility() {
         var trendSection = document.querySelector(".trend");
-        var visibleColumns = document.querySelectorAll('.trend .col-lg-4[style=""], .trend .col-lg-4:not([style]), .trend .col-lg-4[style*="display: "]');
 
         if (!trendSection) {
             return;
@@ -153,6 +152,66 @@
         });
 
         trendSection.style.display = anyVisible ? "" : "none";
+        initTrendTabs();
+    }
+
+    function initTrendTabs() {
+        if (window.innerWidth > 767) {
+            return;
+        }
+
+        var tabBar = document.querySelector(".trend-tab-bar");
+        var tabs = document.querySelectorAll(".trend-tab");
+
+        if (!tabBar || !tabs.length) {
+            return;
+        }
+
+        var columns = document.querySelectorAll(".trend .col-lg-4");
+
+        function activateTab(clickedTab) {
+            Array.prototype.forEach.call(tabs, function (t) {
+                t.classList.remove("active");
+            });
+            Array.prototype.forEach.call(columns, function (col) {
+                col.classList.remove("trend-tab-active");
+            });
+
+            clickedTab.classList.add("active");
+            var targetId = clickedTab.getAttribute("data-target");
+            var target = document.getElementById(targetId);
+            var col = target ? target.closest(".col-lg-4") : null;
+            if (col) {
+                col.classList.add("trend-tab-active");
+            }
+        }
+
+        var visibleTabs = Array.prototype.filter.call(tabs, function (tab) {
+            var targetId = tab.getAttribute("data-target");
+            var target = document.getElementById(targetId);
+            var col = target ? target.closest(".col-lg-4") : null;
+            return col && col.style.display !== "none";
+        });
+
+        Array.prototype.forEach.call(tabs, function (tab) {
+            var targetId = tab.getAttribute("data-target");
+            var target = document.getElementById(targetId);
+            var col = target ? target.closest(".col-lg-4") : null;
+            tab.style.display = (!col || col.style.display === "none") ? "none" : "";
+        });
+
+        if (!visibleTabs.length) {
+            tabBar.style.display = "none";
+            return;
+        }
+
+        activateTab(visibleTabs[0]);
+
+        Array.prototype.forEach.call(visibleTabs, function (tab) {
+            tab.addEventListener("click", function () {
+                activateTab(tab);
+            });
+        });
     }
 
     if (document.readyState === "loading") {
