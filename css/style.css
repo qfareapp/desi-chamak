@@ -4336,6 +4336,21 @@ body {
 }
 
 /* =============================================
+   Prevent horizontal page scroll / white-space swipe
+   ============================================= */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Owl carousel's track can extend past the viewport on touch —
+   clip it inside its own wrapper, not the page */
+.owl-carousel .owl-stage-outer {
+    overflow: hidden;
+}
+
+/* =============================================
    Banner / Owl Carousel Slider — Visual Overhaul
    ============================================= */
 
