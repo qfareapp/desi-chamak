@@ -54,7 +54,7 @@
         var titleNode = document.getElementById(config.titleId);
         var itemsNode = document.getElementById(config.itemsId);
         var sectionElement;
-        var columnElement = itemsNode ? itemsNode.closest(".col-lg-4") : null;
+        var columnElement = itemsNode ? itemsNode.closest(".col-12") : null;
         var selectedProducts;
 
         if (!titleNode || !itemsNode) {
@@ -95,20 +95,26 @@
             return;
         }
 
-        itemsNode.innerHTML = selectedProducts.map(function (product) {
+        itemsNode.innerHTML = '<div class="row">' + selectedProducts.map(function (product) {
             return [
-                '<div class="trend__item">',
-                '<div class="trend__item__pic">',
-                '<a href="product-details.html?slug=' + encodeURIComponent(product.slug) + '"><img src="' + escapeHtml(product.image) + '" alt="' + escapeHtml(product.name) + '"></a>',
+                '<div class="col-6 col-sm-6">',
+                '<div class="product__item">',
+                '<div class="product__item__pic" style="background-image: url(\'' + escapeHtml(product.image) + '\'); background-size: cover; background-position: center;">',
+                '<ul class="product__hover">',
+                '<li><a href="' + escapeHtml(product.image) + '" class="image-popup"><span class="arrow_expand"></span></a></li>',
+                '<li><a href="#"><span class="icon_heart_alt"></span></a></li>',
+                '<li><a href="#"><span class="icon_bag_alt"></span></a></li>',
+                "</ul>",
                 "</div>",
-                '<div class="trend__item__text">',
+                '<div class="product__item__text">',
                 '<h6><a href="product-details.html?slug=' + encodeURIComponent(product.slug) + '">' + escapeHtml(product.name) + "</a></h6>",
                 '<div class="rating">' + ratingHtml() + "</div>",
                 '<div class="product__price">' + formatPrice(product.price) + "</div>",
                 "</div>",
+                "</div>",
                 "</div>"
             ].join("");
-        }).join("");
+        }).join("") + "</div>";
     }
 
     async function loadSections() {
@@ -147,7 +153,7 @@
             return;
         }
 
-        var anyVisible = Array.prototype.some.call(trendSection.querySelectorAll(".col-lg-4"), function (column) {
+        var anyVisible = Array.prototype.some.call(trendSection.querySelectorAll(".col-12"), function (column) {
             return column.style.display !== "none";
         });
 
@@ -156,10 +162,6 @@
     }
 
     function initTrendTabs() {
-        if (window.innerWidth > 767) {
-            return;
-        }
-
         var tabBar = document.querySelector(".trend-tab-bar");
         var tabs = document.querySelectorAll(".trend-tab");
 
@@ -167,7 +169,7 @@
             return;
         }
 
-        var columns = document.querySelectorAll(".trend .col-lg-4");
+        var columns = document.querySelectorAll(".trend .col-12");
 
         function activateTab(clickedTab) {
             Array.prototype.forEach.call(tabs, function (t) {
@@ -180,7 +182,7 @@
             clickedTab.classList.add("active");
             var targetId = clickedTab.getAttribute("data-target");
             var target = document.getElementById(targetId);
-            var col = target ? target.closest(".col-lg-4") : null;
+            var col = target ? target.closest(".col-12") : null;
             if (col) {
                 col.classList.add("trend-tab-active");
             }
@@ -189,14 +191,14 @@
         var visibleTabs = Array.prototype.filter.call(tabs, function (tab) {
             var targetId = tab.getAttribute("data-target");
             var target = document.getElementById(targetId);
-            var col = target ? target.closest(".col-lg-4") : null;
+            var col = target ? target.closest(".col-12") : null;
             return col && col.style.display !== "none";
         });
 
         Array.prototype.forEach.call(tabs, function (tab) {
             var targetId = tab.getAttribute("data-target");
             var target = document.getElementById(targetId);
-            var col = target ? target.closest(".col-lg-4") : null;
+            var col = target ? target.closest(".col-12") : null;
             tab.style.display = (!col || col.style.display === "none") ? "none" : "";
         });
 
@@ -205,13 +207,16 @@
             return;
         }
 
-        activateTab(visibleTabs[0]);
-
-        Array.prototype.forEach.call(visibleTabs, function (tab) {
-            tab.addEventListener("click", function () {
-                activateTab(tab);
+        if (!tabBar.dataset.tabsInit) {
+            tabBar.dataset.tabsInit = "1";
+            Array.prototype.forEach.call(tabs, function (tab) {
+                tab.addEventListener("click", function () {
+                    activateTab(tab);
+                });
             });
-        });
+        }
+
+        activateTab(visibleTabs[0]);
     }
 
     if (document.readyState === "loading") {
