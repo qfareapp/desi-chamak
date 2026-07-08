@@ -131,6 +131,29 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.admin-nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(214, 178, 127, 0.34);
+    background: #161a25;
+    color: #e7ecf3;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-nav-toggle .fa {
+    color: #d6b27f;
+}
+
+.admin-nav-overlay {
+    display: none;
 }
 
 .topbar h1 {
@@ -738,9 +761,47 @@ body {
 
 @media (max-width: 992px) {
     .sidebar {
-        display: none;
+        display: block;
+        position: fixed;
+        left: -260px;
+        top: 0;
+        bottom: 0;
+        z-index: 1045;
+        transition: left 0.25s ease;
     }
+
+    .admin-nav-open .sidebar {
+        left: 0;
+    }
+
+    .admin-nav-toggle {
+        display: inline-flex;
+    }
+
+    .admin-nav-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 8, 12, 0.68);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 1040;
+        border: 0;
+        padding: 0;
+    }
+
+    .admin-nav-open .admin-nav-overlay {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .admin-shell {
+        display: block;
+    }
+
     .content {
         padding: 18px;
+        width: 100%;
     }
 }
