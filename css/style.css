@@ -4334,3 +4334,206 @@ body {
         letter-spacing: 2px;
     }
 }
+
+/* =============================================
+   Banner / Owl Carousel Slider — Visual Overhaul
+   ============================================= */
+
+/* 1. Section dimensions & background coverage */
+.banner {
+    height: 580px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+/* 2. Absolutely center content block within the fixed-height banner */
+.banner .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -52%);
+            transform: translate(-50%, -52%);
+    width: 100%;
+    max-width: 1170px;
+    padding: 0 15px;
+    z-index: 2;
+}
+
+.banner__slider {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* 3. Pull dots out of the carousel's stacking context so they sit
+      at the bottom of .banner (which is position:relative above) */
+.banner__slider.owl-carousel {
+    position: static;
+}
+
+.banner__slider.owl-carousel .owl-dots {
+    position: absolute;
+    top: auto;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    margin: 0;
+}
+
+/* 4. Dots: elongated dash bars instead of circles */
+.banner__slider.owl-carousel .owl-dots .owl-dot {
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.banner__slider.owl-carousel .owl-dots .owl-dot span {
+    display: block;
+    height: 3px;
+    width: 22px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.30);
+    margin: 0;
+    -webkit-transition: background 0.35s ease, width 0.35s ease;
+            transition: background 0.35s ease, width 0.35s ease;
+}
+
+.banner__slider.owl-carousel .owl-dots .owl-dot.active span {
+    background: #ca1515;
+    width: 38px;
+}
+
+/* 5. Category label — uppercase pill with decorative flanking lines */
+.banner__text {
+    text-align: center;
+}
+
+.banner__text span {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #d6b27f;
+    margin-bottom: 18px;
+}
+
+.banner__text span::before,
+.banner__text span::after {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+}
+
+/* 6. Headline — larger, light, with soft depth shadow */
+.banner__text h1 {
+    font-family: "Cookie", cursive;
+    font-size: 104px;
+    line-height: 0.92;
+    color: #f5f5f5;
+    margin-bottom: 28px;
+    text-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* 7. CTA — bordered ghost button replacing the underline link */
+.banner__text a {
+    display: inline-block;
+    padding: 12px 40px;
+    border: 2px solid rgba(245, 245, 245, 0.60);
+    color: #f5f5f5;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    -webkit-transition: background 0.3s ease, border-color 0.3s ease;
+            transition: background 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+    position: static;
+}
+
+.banner__text a::after {
+    display: none;
+}
+
+.banner__text a:hover,
+.banner__text a:focus {
+    color: #f5f5f5;
+    background: rgba(245, 245, 245, 0.12);
+    border-color: #f5f5f5;
+    text-decoration: none;
+}
+
+/* 8. Tablet */
+@media only screen and (max-width: 991px) {
+    .banner {
+        height: 480px;
+    }
+    .banner__text h1 {
+        font-size: 80px;
+    }
+}
+
+/* 9. Mobile */
+@media only screen and (max-width: 767px) {
+    .banner {
+        height: 380px;
+    }
+    .banner .container {
+        -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+    }
+    .banner__text h1 {
+        font-size: 58px;
+        margin-bottom: 20px;
+    }
+    .banner__text span {
+        font-size: 9px;
+        letter-spacing: 3px;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+    .banner__text span::before,
+    .banner__text span::after {
+        width: 22px;
+    }
+    .banner__text a {
+        padding: 10px 28px;
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+    .banner__slider.owl-carousel .owl-dots {
+        bottom: 18px;
+    }
+}
+
+/* 10. Small mobile */
+@media only screen and (max-width: 479px) {
+    .banner {
+        height: 300px;
+    }
+    .banner__text h1 {
+        font-size: 46px;
+        margin-bottom: 16px;
+    }
+    .banner__text span {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    .banner__text span::before,
+    .banner__text span::after {
+        width: 16px;
+    }
+}

@@ -88,9 +88,11 @@ Created: Colorib
         margin: 0,
         items: 1,
         dots: true,
-        smartSpeed: 1200,
+        smartSpeed: 900,
         autoHeight: false,
-        autoplay: true
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true
     });
 
     /*--------------------------
