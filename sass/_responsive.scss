@@ -330,6 +330,23 @@
       padding-left: 0;
     }
 
+    /* The trend section's panels (Curated Sets / Bestsellers / Gift
+       Ready) are click-to-switch tabs, not a swipe carousel — only one
+       .col-12 is ever visible (see css/style.css "Trend Section" block),
+       so undo the 88%-wide/zero-padding carousel treatment above for it,
+       otherwise the visible panel's card grid renders flush-left with
+       a stray gap on the right. */
+    .trend .container > .row {
+      display: block;
+      overflow-x: visible;
+    }
+
+    .trend .container > .row > .col-12 {
+      max-width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
     .shop .col-lg-3.col-md-4 {
       display: none;
     }

@@ -4514,6 +4514,21 @@ body {
         letter-spacing: 1px;
     }
 
+    /* Undo the legacy 88%-wide swipe-carousel row treatment inherited
+       from _responsive.scss: panels are now real click-to-switch tabs
+       (see .trend-tab-bar above), so the single visible panel should
+       span the full row with normal, symmetric Bootstrap gutters */
+    .trend .container > .row {
+        display: block;
+        overflow-x: visible;
+    }
+
+    .trend .container > .row > .col-12 {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
     .trend .product__item__pic {
         height: 230px;
     }
