@@ -342,7 +342,7 @@
             var quantityInput = document.querySelector(".product__details__button .pro-qty input");
             var quantity = quantityInput ? quantityInput.value : 1;
 
-            window.DesiChamakCart.addItem({
+            var result = window.DesiChamakCart.addItem({
                 id: addToBagButton.dataset.productId,
                 slug: addToBagButton.dataset.productSlug,
                 name: addToBagButton.dataset.productName,
@@ -351,6 +351,11 @@
                 quantity: quantity,
                 link: addToBagButton.dataset.productLink
             });
+
+            if (!result) {
+                addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Try again';
+                return;
+            }
 
             addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Added to bag';
 

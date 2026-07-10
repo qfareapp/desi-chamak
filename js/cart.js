@@ -15,7 +15,15 @@
     }
 
     function readCart() {
-        return safeParse(window.localStorage.getItem(STORAGE_KEY)).filter(function (item) {
+        var raw = "[]";
+
+        try {
+            raw = window.localStorage.getItem(STORAGE_KEY) || "[]";
+        } catch (_error) {
+            raw = "[]";
+        }
+
+        return safeParse(raw).filter(function (item) {
             return item && item.id;
         }).map(function (item) {
             return {
@@ -30,13 +38,34 @@
         });
     }
 
-    function writeCart(cart) {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-        document.dispatchEvent(new CustomEvent("cart:updated", {
-            detail: {
+    function emitCartUpdated(cart) {
+        var event;
+
+        if (typeof window.CustomEvent === "function") {
+            event = new CustomEvent("cart:updated", {
+                detail: {
+                    cart: cart.slice()
+                }
+            });
+        } else {
+            event = document.createEvent("Event");
+            event.initEvent("cart:updated", true, true);
+            event.detail = {
                 cart: cart.slice()
-            }
-        }));
+            };
+        }
+
+        document.dispatchEvent(event);
+    }
+
+    function writeCart(cart) {
+        try {
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+            emitCartUpdated(cart);
+            return true;
+        } catch (_error) {
+            return false;
+        }
     }
 
     function getItemCount(cart) {
@@ -93,8 +122,7 @@
             });
         }
 
-        writeCart(cart);
-        return cart;
+        return writeCart(cart) ? cart : null;
     }
 
     function updateItemQuantity(id, quantity) {
@@ -108,8 +136,7 @@
             return item;
         });
 
-        writeCart(cart);
-        return cart;
+        return writeCart(cart) ? cart : null;
     }
 
     function removeItem(id) {
@@ -117,8 +144,7 @@
             return item.id !== id;
         });
 
-        writeCart(cart);
-        return cart;
+        return writeCart(cart) ? cart : null;
     }
 
     window.DesiChamakCart = {
