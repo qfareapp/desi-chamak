@@ -67,6 +67,43 @@
         return images;
     }
 
+    var MOBILE_THUMB_QUERY = "(max-width: 767px)";
+    var VISIBLE_THUMB_COUNT = 3;
+
+    function limitVisibleThumbs(container) {
+        if (!container) {
+            return;
+        }
+
+        var isMobile = window.matchMedia && window.matchMedia(MOBILE_THUMB_QUERY).matches;
+        var thumbs = container.querySelectorAll(".pt");
+
+        if (!isMobile || thumbs.length <= VISIBLE_THUMB_COUNT) {
+            container.style.maxHeight = "";
+            return;
+        }
+
+        var first = thumbs[0];
+        var thumbHeight = first.getBoundingClientRect().height;
+        var marginBottom = parseFloat(window.getComputedStyle(first).marginBottom) || 0;
+        var maxHeight = (thumbHeight * VISIBLE_THUMB_COUNT) + (marginBottom * (VISIBLE_THUMB_COUNT - 1));
+
+        container.style.maxHeight = maxHeight + "px";
+    }
+
+    function scrollThumbIntoView(container, thumb) {
+        if (!container || !thumb) {
+            return;
+        }
+
+        var targetTop = thumb.offsetTop - (container.clientHeight - thumb.offsetHeight) / 2;
+
+        container.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: "smooth"
+        });
+    }
+
     function initGallery(images, productName) {
         var thumbsContainer = document.getElementById("product-thumbnails");
         var sliderContainer = document.getElementById("product-gallery-slider");
@@ -88,6 +125,11 @@
         sliderMarkup.push("</div>");
         sliderContainer.innerHTML = sliderMarkup.join("");
 
+        limitVisibleThumbs(thumbsContainer);
+        window.addEventListener("resize", function () {
+            limitVisibleThumbs(thumbsContainer);
+        });
+
         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.owlCarousel) {
             window.jQuery(".product__details__pic__slider").owlCarousel({
                 loop: false,
@@ -104,9 +146,17 @@
                 startPosition: "URLHash"
             }).on("changed.owl.carousel", function (event) {
                 var indexNum = event.item.index;
+                var activeThumb = null;
+
                 Array.prototype.forEach.call(document.querySelectorAll(".product__thumb a"), function (thumb, thumbIndex) {
-                    thumb.classList.toggle("active", thumbIndex === indexNum);
+                    var isActive = thumbIndex === indexNum;
+                    thumb.classList.toggle("active", isActive);
+                    if (isActive) {
+                        activeThumb = thumb;
+                    }
                 });
+
+                scrollThumbIntoView(thumbsContainer, activeThumb);
             });
         }
 
@@ -116,6 +166,7 @@
                     item.classList.remove("active");
                 });
                 thumb.classList.add("active");
+                scrollThumbIntoView(thumbsContainer, thumb);
             });
         });
     }
