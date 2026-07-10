@@ -1277,6 +1277,17 @@ ol {
 	display: inline-block;
 }
 
+.product__hover li a.is-active {
+	background: #ca1515;
+}
+
+.product__hover li a.is-active span {
+	color: #ffffff;
+	-webkit-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+
 .product__item__text {
 	text-align: center;
 	padding-top: 22px;
@@ -1717,6 +1728,14 @@ ol {
 	-webkit-transform: scale(1.06);
 	-ms-transform: scale(1.06);
 	transform: scale(1.06);
+}
+
+.product__details__wishlist.is-active {
+	background: #ca1515;
+}
+
+.product__details__wishlist.is-active span {
+	color: #ffffff;
 }
 
 .product__details__pic__slider.owl-carousel .owl-nav button {

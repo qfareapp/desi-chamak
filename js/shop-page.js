@@ -65,6 +65,21 @@
         return '<div class="' + className + '">' + escapeHtml(badge) + "</div>";
     }
 
+    function getWishlistMarkup(product, image) {
+        var link = "product-details.html?slug=" + encodeURIComponent(product.slug);
+
+        return [
+            '<li><a href="#" class="wishlist-toggle"',
+            ' data-wishlist-id="' + escapeHtml(product._id || product.slug || product.name) + '"',
+            ' data-wishlist-slug="' + escapeHtml(product.slug || "") + '"',
+            ' data-wishlist-name="' + escapeHtml(product.name || "") + '"',
+            ' data-wishlist-image="' + escapeHtml(image || "") + '"',
+            ' data-wishlist-price="' + escapeHtml(String(product.price.selling || 0)) + '"',
+            ' data-wishlist-link="' + escapeHtml(link) + '"',
+            ' aria-label="Add to wishlist"><span class="icon_heart_alt"></span></a></li>'
+        ].join("");
+    }
+
     function normalizeProduct(product) {
         var categorySlug = slugify(product.category || "");
         var filterClasses = [];
@@ -200,6 +215,7 @@
                 getBadgeMarkup(product) || (soldOut ? '<div class="label stockout stockblue">Sold Out</div>' : ""),
                 '<ul class="product__hover">',
                 '<li><a href="' + escapeHtml(image) + '" class="image-popup"><span class="arrow_expand"></span></a></li>',
+                getWishlistMarkup(product, image),
                 '<li><a href="product-details.html?slug=' + encodeURIComponent(product.slug) + '"><span class="icon_bag_alt"></span></a></li>',
                 "</ul>",
                 "</div>",
@@ -215,6 +231,10 @@
 
         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.magnificPopup) {
             window.jQuery(".image-popup").magnificPopup({ type: "image" });
+        }
+
+        if (window.DesiChamakWishlist) {
+            window.DesiChamakWishlist.syncButtons();
         }
     }
 

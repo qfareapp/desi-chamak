@@ -36,6 +36,19 @@
         return '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
     }
 
+    function wishlistMarkup(product) {
+        return [
+            '<li><a href="#" class="wishlist-toggle"',
+            ' data-wishlist-id="' + escapeHtml(product.id || product.slug || product.name) + '"',
+            ' data-wishlist-slug="' + escapeHtml(product.slug || "") + '"',
+            ' data-wishlist-name="' + escapeHtml(product.name || "") + '"',
+            ' data-wishlist-image="' + escapeHtml(product.image || "") + '"',
+            ' data-wishlist-price="' + escapeHtml(String(product.price || 0)) + '"',
+            ' data-wishlist-link="' + escapeHtml(product.link || "product-details.html") + '"',
+            ' aria-label="Add to wishlist"><span class="icon_heart_alt"></span></a></li>'
+        ].join("");
+    }
+
     function getRequestKey() {
         var params = new URLSearchParams(window.location.search);
         return {
@@ -206,6 +219,8 @@
 
             if (linkedProduct) {
                 return {
+                    id: linkedProduct._id || linkedProduct.slug || linkedProduct.name,
+                    slug: linkedProduct.slug || "",
                     name: linkedProduct.name,
                     image: linkedProduct.media && (linkedProduct.media.heroImage || (linkedProduct.media.thumbnails && linkedProduct.media.thumbnails[0])) || "",
                     price: linkedProduct.price && linkedProduct.price.selling ? linkedProduct.price.selling : 0,
@@ -215,6 +230,8 @@
             }
 
             return {
+                id: related.productId || related.slug || related.title || "related-product",
+                slug: related.slug || "",
                 name: related.title || "Related Product",
                 image: related.image || "",
                 price: Number(related.price || 0),
@@ -230,6 +247,8 @@
                 return item._id !== product._id;
             }).slice(0, 4).map(function (item) {
                 return {
+                    id: item._id || item.slug || item.name,
+                    slug: item.slug || "",
                     name: item.name,
                     image: item.media && (item.media.heroImage || (item.media.thumbnails && item.media.thumbnails[0])) || "",
                     price: item.price && item.price.selling ? item.price.selling : 0,
@@ -252,7 +271,7 @@
                 badgeMarkup(item.badge),
                 '<ul class="product__hover">',
                 '<li><a href="' + escapeHtml(item.image) + '" class="image-popup"><span class="arrow_expand"></span></a></li>',
-                '<li><a href="#"><span class="icon_heart_alt"></span></a></li>',
+                wishlistMarkup(item),
                 '<li><a href="' + escapeHtml(item.link) + '"><span class="icon_bag_alt"></span></a></li>',
                 "</ul>",
                 "</div>",
@@ -268,6 +287,10 @@
 
         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.magnificPopup) {
             window.jQuery(".image-popup").magnificPopup({ type: "image" });
+        }
+
+        if (window.DesiChamakWishlist) {
+            window.DesiChamakWishlist.syncButtons();
         }
     }
 
@@ -292,6 +315,7 @@
         document.getElementById("product-price").innerHTML = priceHtml;
         document.getElementById("product-summary").textContent = product.summary || "No product summary available.";
         var addToBagButton = document.getElementById("add-to-bag-btn");
+        var wishlistButton = document.querySelector(".product__details__wishlist");
 
         if (addToBagButton) {
             addToBagButton.dataset.productId = product._id || product.slug || title;
@@ -304,10 +328,23 @@
             addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Add to bag';
         }
 
+        if (wishlistButton) {
+            wishlistButton.setAttribute("data-wishlist-id", product._id || product.slug || title);
+            wishlistButton.setAttribute("data-wishlist-slug", product.slug || "");
+            wishlistButton.setAttribute("data-wishlist-name", title);
+            wishlistButton.setAttribute("data-wishlist-image", galleryImages[0] || "");
+            wishlistButton.setAttribute("data-wishlist-price", String(sellingPrice));
+            wishlistButton.setAttribute("data-wishlist-link", product.slug ? "product-details.html?slug=" + encodeURIComponent(product.slug) : "product-details.html");
+        }
+
         initGallery(galleryImages, title);
         renderWidgets(product);
         renderTabs(product);
         renderRelatedProducts(product, allProducts);
+
+        if (window.DesiChamakWishlist) {
+            window.DesiChamakWishlist.syncButtons();
+        }
     }
 
     function renderNotFound(message) {

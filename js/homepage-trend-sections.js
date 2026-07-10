@@ -50,6 +50,21 @@
         return '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
     }
 
+    function wishlistMarkup(product) {
+        var link = "product-details.html?slug=" + encodeURIComponent(product.slug || "");
+
+        return [
+            '<li><a href="#" class="wishlist-toggle"',
+            ' data-wishlist-id="' + escapeHtml(product._id || product.slug || product.name) + '"',
+            ' data-wishlist-slug="' + escapeHtml(product.slug || "") + '"',
+            ' data-wishlist-name="' + escapeHtml(product.name || "") + '"',
+            ' data-wishlist-image="' + escapeHtml(product.image || "") + '"',
+            ' data-wishlist-price="' + escapeHtml(String(product.price || 0)) + '"',
+            ' data-wishlist-link="' + escapeHtml(link) + '"',
+            ' aria-label="Add to wishlist"><span class="icon_heart_alt"></span></a></li>'
+        ].join("");
+    }
+
     function renderSection(config, payload, products) {
         var titleNode = document.getElementById(config.titleId);
         var itemsNode = document.getElementById(config.itemsId);
@@ -102,7 +117,7 @@
                 '<div class="product__item__pic" style="background-image: url(\'' + escapeHtml(product.image) + '\'); background-size: cover; background-position: center;">',
                 '<ul class="product__hover">',
                 '<li><a href="' + escapeHtml(product.image) + '" class="image-popup"><span class="arrow_expand"></span></a></li>',
-                '<li><a href="#"><span class="icon_heart_alt"></span></a></li>',
+                wishlistMarkup(product),
                 '<li><a href="#"><span class="icon_bag_alt"></span></a></li>',
                 "</ul>",
                 "</div>",
@@ -115,6 +130,10 @@
                 "</div>"
             ].join("");
         }).join("") + "</div>";
+
+        if (window.DesiChamakWishlist) {
+            window.DesiChamakWishlist.syncButtons();
+        }
     }
 
     async function loadSections() {

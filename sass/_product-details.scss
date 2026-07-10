@@ -81,6 +81,14 @@
         background: $white-color;
         transform: scale(1.06);
     }
+
+    &.is-active {
+        background: $primary-color;
+
+        span {
+            color: $white-color;
+        }
+    }
 }
 
 .product__details__pic__slider {

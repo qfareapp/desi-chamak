@@ -27,6 +27,21 @@
         return '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>';
     }
 
+    function wishlistMarkup(product, price) {
+        var link = "product-details.html?slug=" + encodeURIComponent(product.slug || "");
+
+        return [
+            '<li><a href="#" class="wishlist-toggle"',
+            ' data-wishlist-id="' + escapeHtml(product._id || product.slug || product.name) + '"',
+            ' data-wishlist-slug="' + escapeHtml(product.slug || "") + '"',
+            ' data-wishlist-name="' + escapeHtml(product.name || "") + '"',
+            ' data-wishlist-image="' + escapeHtml(product.image || "") + '"',
+            ' data-wishlist-price="' + escapeHtml(String(price || 0)) + '"',
+            ' data-wishlist-link="' + escapeHtml(link) + '"',
+            ' aria-label="Add to wishlist"><span class="icon_heart_alt"></span></a></li>'
+        ].join("");
+    }
+
     function normalizeSection(payload) {
         var source = payload || {};
         return {
@@ -78,6 +93,8 @@
         }
 
         grid.innerHTML = selectedProducts.map(function (product) {
+            var discountedPrice = getDiscountedPrice(product, section.discountPercent);
+
             return [
                 '<div class="col-lg-4 col-md-6 col-sm-6">',
                 '<div class="product__item sale">',
@@ -85,14 +102,14 @@
                 badgeMarkup(section.discountPercent + "% OFF"),
                 '<ul class="product__hover">',
                 '<li><a href="' + escapeHtml(product.image) + '" class="image-popup"><span class="arrow_expand"></span></a></li>',
-                '<li><a href="#"><span class="icon_heart_alt"></span></a></li>',
+                wishlistMarkup(product, discountedPrice),
                 '<li><a href="product-details.html?slug=' + encodeURIComponent(product.slug) + '"><span class="icon_bag_alt"></span></a></li>',
                 "</ul>",
                 "</div>",
                 '<div class="product__item__text">',
                 '<h6><a href="product-details.html?slug=' + encodeURIComponent(product.slug) + '">' + escapeHtml(product.name) + "</a></h6>",
                 '<div class="rating">' + ratingHtml() + "</div>",
-                '<div class="product__price">' + formatPrice(getDiscountedPrice(product, section.discountPercent)) + " <span>" + formatPrice(getBasePrice(product)) + "</span></div>",
+                '<div class="product__price">' + formatPrice(discountedPrice) + " <span>" + formatPrice(getBasePrice(product)) + "</span></div>",
                 "</div>",
                 "</div>",
                 "</div>"
@@ -101,6 +118,10 @@
 
         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.magnificPopup) {
             window.jQuery(".image-popup").magnificPopup({ type: "image" });
+        }
+
+        if (window.DesiChamakWishlist) {
+            window.DesiChamakWishlist.syncButtons();
         }
     }
 

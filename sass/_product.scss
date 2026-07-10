@@ -149,6 +149,11 @@
       }
     }
 
+    &.wishlist-static {
+      opacity: 1;
+      top: 0;
+    }
+
     a {
       font-size: 18px;
       color: $heading-color;
@@ -167,6 +172,16 @@
         transform: rotate(0);
         @include transition(all, .3s);
         display: inline-block;
+      }
+
+      &.is-active {
+        background: $primary-color;
+
+        span {
+          color: $white-color;
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
       }
     }
   }
