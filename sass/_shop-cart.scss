@@ -143,6 +143,19 @@
                 width: 150px;
             }
 
+            .cart__view {
+                padding-right: 12px;
+
+                .primary-btn {
+                    border-radius: 50px;
+                    @include transition(opacity 0.15s);
+
+                    &:hover {
+                        opacity: 0.85;
+                    }
+                }
+            }
+
             .cart__close {
                 text-align: right;
 

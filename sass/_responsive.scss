@@ -858,14 +858,33 @@
       font-size: 14px;
     }
 
+    /* Wishlist's "View product" CTA (not present on the cart page) —
+       full-width button on its own line below price/total. */
+    .shop__cart__table tbody tr .cart__view {
+      order: 5;
+      flex: 0 0 100%;
+      width: auto;
+      margin-top: 10px;
+      padding-right: 0;
+
+      .primary-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 11px 10px 9px;
+        font-size: 12px;
+      }
+    }
+
     .shop__cart__table tbody tr .cart__close {
       position: absolute;
       top: 12px;
       right: 12px;
     }
 
-    /* Continue Shopping / Refresh Bag: compact side-by-side pair
-       instead of two full-width blocks stacked with big gaps */
+    /* Continue Shopping / Refresh Bag (or Refresh Wishlist): compact
+       side-by-side pair instead of two full-width blocks stacked with
+       big gaps */
     .cart__actions {
       display: flex;
       gap: 10px;
@@ -888,8 +907,12 @@
 
     .cart__btn a {
       display: block;
-      padding: 12px 10px 10px;
-      font-size: 11px;
+      padding: 12px 8px 10px;
+      font-size: 10px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .discount__content h6 {

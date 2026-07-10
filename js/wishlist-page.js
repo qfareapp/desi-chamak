@@ -36,13 +36,13 @@
             return [
                 "<tr>",
                 '<td class="cart__product__item">',
-                '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + '" style="width:90px;height:90px;object-fit:cover;border-radius:10px;">',
+                '<img src="' + escapeHtml(item.image) + '" alt="' + escapeHtml(item.name) + '">',
                 '<div class="cart__product__item__title">',
                 '<h6><a href="' + escapeHtml(item.link) + '">' + escapeHtml(item.name) + "</a></h6>",
                 "</div>",
                 "</td>",
                 '<td class="cart__price">' + formatPrice(item.price) + "</td>",
-                '<td class="cart__close"><a href="' + escapeHtml(item.link) + '" class="primary-btn" style="padding:10px 18px;font-size:12px;">View product</a></td>',
+                '<td class="cart__view"><a href="' + escapeHtml(item.link) + '" class="primary-btn">View product</a></td>',
                 '<td class="cart__close"><span class="icon_close" data-remove-wishlist="' + escapeHtml(item.id) + '" role="button" tabindex="0" aria-label="Remove from wishlist"></span></td>',
                 "</tr>"
             ].join("");
