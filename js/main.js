@@ -83,7 +83,7 @@ Created: Colorib
     /*--------------------------
         Banner Slider
     ----------------------------*/
-    $(".banner__slider").owlCarousel({
+    $(".banner__slider, .mobile-hero-slider").owlCarousel({
         loop: true,
         margin: 0,
         items: 1,

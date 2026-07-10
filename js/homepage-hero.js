@@ -77,6 +77,19 @@
         }
     }
 
+    function setSlide(elementId, image, href, label) {
+        var element = document.getElementById(elementId);
+        if (!element) {
+            return;
+        }
+
+        element.style.backgroundImage = "url('" + image + "')";
+        element.href = href;
+        if (label) {
+            element.setAttribute("aria-label", label);
+        }
+    }
+
     function resolveHeroCtaLink() {
         return "./shop.html";
     }
@@ -84,9 +97,14 @@
     function applyHero(hero) {
         var heroMain = document.getElementById("hero-main");
         var heroSection = document.getElementById("collections");
+        var mobileHeroSection = document.getElementById("mobile-hero");
 
         if (heroSection) {
             heroSection.style.display = hero.enabled === false ? "none" : "";
+        }
+
+        if (mobileHeroSection) {
+            mobileHeroSection.style.display = hero.enabled === false ? "none" : "";
         }
 
         if (hero.enabled === false) {
@@ -97,6 +115,7 @@
         setText(document.getElementById("hero-title"), hero.title);
         setText(heroMain ? heroMain.querySelector("p") : null, hero.subheadline);
         setLink(document.getElementById("hero-cta"), resolveHeroCtaLink(), hero.ctaText);
+        setSlide("mobile-hero-slide-main", hero.backgroundImage, resolveHeroCtaLink(), hero.title);
 
         var gradients = [
             "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.0) 100%)",
@@ -112,6 +131,7 @@
             setText(tileElement ? tileElement.querySelector("h4") : null, tile.title);
             setText(tileElement ? tileElement.querySelector("p") : null, tile.copy);
             setLink(tileElement ? tileElement.querySelector("a") : null, tile.link, "Shop now");
+            setSlide("mobile-hero-slide-" + tileNumber, tile.image, tile.link, tile.title);
         });
     }
 

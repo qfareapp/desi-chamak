@@ -912,3 +912,69 @@
       font-size: 24px;
     }
   }
+
+.mobile-hero {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .mobile-hero {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .mobile-hero-slider {
+    position: relative;
+    overflow: hidden;
+
+    .owl-stage-outer,
+    .owl-stage,
+    .owl-item {
+      height: 100%;
+    }
+
+    &.owl-carousel .owl-dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      top: auto;
+      text-align: center;
+    }
+
+    &.owl-carousel .owl-dots button {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      margin-right: 8px;
+    }
+
+    &.owl-carousel .owl-dots button.active {
+      background: #ffffff;
+    }
+
+    &.owl-carousel .owl-dots button:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .mobile-hero-slide {
+    display: block;
+    width: 100%;
+    height: min(118vw, 520px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  #collections {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .mobile-hero-slide {
+    height: min(124vw, 500px);
+  }
+}
