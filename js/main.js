@@ -250,20 +250,31 @@ Created: Colorib
     var proQty = $('.pro-qty');
 	proQty.prepend('<span class="dec qtybtn">-</span>');
 	proQty.append('<span class="inc qtybtn">+</span>');
+
+	function refreshQtyBtnState($qty) {
+		var value = parseFloat($qty.find('input').val()) || 1;
+		$qty.find('.dec').toggleClass('disabled', value <= 1);
+	}
+
+	proQty.each(function () {
+		refreshQtyBtnState($(this));
+	});
+
 	proQty.on('click', '.qtybtn', function () {
 		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
+		if ($button.hasClass('disabled')) {
+			return;
+		}
+		var $qty = $button.parent();
+		var oldValue = $qty.find('input').val();
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
+			// Don't allow decrementing below one
+			var newVal = parseFloat(oldValue) > 1 ? parseFloat(oldValue) - 1 : 1;
 		}
-		$button.parent().find('input').val(newVal);
+		$qty.find('input').val(newVal);
+		refreshQtyBtnState($qty);
     });
     
     /*-------------------

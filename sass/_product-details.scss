@@ -195,7 +195,7 @@
         color: $heading-color;
         font-weight: 600;
         float: left;
-        margin-top: 14px;
+        margin-top: 12px;
         margin-right: 15px;
     }
 }
@@ -227,6 +227,65 @@
         width: 84px;
         text-align: center;
         height: 48px;
+    }
+}
+
+.product__details__button .pro-qty {
+    height: 44px;
+    width: 132px;
+    border: 1px solid #ebebeb;
+    border-radius: 50px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    background: $white-color;
+
+    .qtybtn {
+        flex: 0 0 40px;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 700;
+        color: #444444;
+        background: #f7f7f7;
+        cursor: pointer;
+        user-select: none;
+        @include transition(background 0.15s, color 0.15s);
+
+        &:hover {
+            background: #f9e6e6;
+            color: $primary-color;
+        }
+
+        &:active {
+            background: #f1cccc;
+        }
+
+        &.disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            background: #f7f7f7;
+            color: #444444;
+        }
+    }
+
+    input {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 15px;
+        color: $heading-color;
+        font-weight: 600;
+        border: none;
+        border-left: 1px solid #ebebeb;
+        border-right: 1px solid #ebebeb;
+        background: transparent;
+        text-align: center;
+        height: 100%;
+        float: none;
+        width: auto;
     }
 }
 
