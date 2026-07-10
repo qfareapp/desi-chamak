@@ -40,7 +40,7 @@
             <li><a href="#"><span class="icon_heart_alt"></span>
                 <div class="tip">2</div>
             </a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span>
+            <li><a href="./shop-cart.html"><span class="icon_bag_alt"></span>
                 <div class="tip">2</div>
             </a></li>
         </ul>
@@ -95,7 +95,7 @@
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
+                            <li><a href="./shop-cart.html"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
@@ -129,7 +129,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shop__cart__table">
+                    <div class="shop__cart__table" id="shop-cart-table">
                         <table>
                             <thead>
                                 <tr>
@@ -140,98 +140,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="shop-cart-body">
                                 <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-1.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Chain bucket bag</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 150.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 300.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-2.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Zip-pockets pebbled tote briefcase</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 170.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-3.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Black jean</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 85.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 170.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="cart__product__item">
-                                        <img src="img/shop-cart/cp-4.jpg" alt="">
-                                        <div class="cart__product__item__title">
-                                            <h6>Cotton Shirt</h6>
-                                            <div class="rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 55.0</td>
-                                    <td class="cart__quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </td>
-                                    <td class="cart__total">$ 110.0</td>
-                                    <td class="cart__close"><span class="icon_close"></span></td>
+                                    <td colspan="5" class="text-center">Loading your bag...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -241,12 +152,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn">
-                        <a href="#">Continue Shopping</a>
+                        <a href="./shop.html">Continue Shopping</a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="cart__btn update__btn">
-                        <a href="#"><span class="icon_loading"></span> Update cart</a>
+                        <a href="./shop-cart.html"><span class="icon_loading"></span> Refresh bag</a>
                     </div>
                 </div>
             </div>
@@ -264,10 +175,10 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>$ 750.0</span></li>
-                            <li>Total <span>$ 750.0</span></li>
+                            <li>Subtotal <span id="cart-subtotal">Rs. 0</span></li>
+                            <li>Total <span id="cart-total">Rs. 0</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="./checkout.html" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
@@ -411,7 +322,9 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/cart.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/shop-cart-page.js"></script>
 </body>
 
 </html>

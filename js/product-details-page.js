@@ -277,6 +277,7 @@
         var compareAt = product.price && product.price.compareAt ? Number(product.price.compareAt) : null;
         var title = product.name || "Product";
         var priceHtml = formatPrice(sellingPrice);
+        var galleryImages = getGalleryImages(product);
 
         if (compareAt && compareAt > sellingPrice) {
             var discountPct = Math.round(((compareAt - sellingPrice) / compareAt) * 100);
@@ -290,8 +291,20 @@
         document.getElementById("product-review-count").textContent = "( " + reviewCount + " reviews )";
         document.getElementById("product-price").innerHTML = priceHtml;
         document.getElementById("product-summary").textContent = product.summary || "No product summary available.";
+        var addToBagButton = document.getElementById("add-to-bag-btn");
 
-        initGallery(getGalleryImages(product), title);
+        if (addToBagButton) {
+            addToBagButton.dataset.productId = product._id || product.slug || title;
+            addToBagButton.dataset.productSlug = product.slug || "";
+            addToBagButton.dataset.productName = title;
+            addToBagButton.dataset.productImage = galleryImages[0] || "";
+            addToBagButton.dataset.productPrice = String(sellingPrice);
+            addToBagButton.dataset.productLink = product.slug ? "product-details.html?slug=" + encodeURIComponent(product.slug) : "product-details.html";
+            addToBagButton.classList.remove("disabled");
+            addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Add to bag';
+        }
+
+        initGallery(galleryImages, title);
         renderWidgets(product);
         renderTabs(product);
         renderRelatedProducts(product, allProducts);
@@ -305,6 +318,48 @@
         document.getElementById("product-specification").textContent = "No specification available.";
         document.getElementById("product-reviews-copy").textContent = "No reviews available.";
         document.getElementById("related-products-grid").innerHTML = '<div class="col-12 text-center muted">No related products found.</div>';
+        var addToBagButton = document.getElementById("add-to-bag-btn");
+
+        if (addToBagButton) {
+            addToBagButton.classList.add("disabled");
+        }
+    }
+
+    function bindAddToBag() {
+        var addToBagButton = document.getElementById("add-to-bag-btn");
+
+        if (!addToBagButton) {
+            return;
+        }
+
+        addToBagButton.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (!window.DesiChamakCart || !addToBagButton.dataset.productId || addToBagButton.classList.contains("disabled")) {
+                return;
+            }
+
+            var quantityInput = document.querySelector(".product__details__button .pro-qty input");
+            var quantity = quantityInput ? quantityInput.value : 1;
+
+            window.DesiChamakCart.addItem({
+                id: addToBagButton.dataset.productId,
+                slug: addToBagButton.dataset.productSlug,
+                name: addToBagButton.dataset.productName,
+                image: addToBagButton.dataset.productImage,
+                price: addToBagButton.dataset.productPrice,
+                quantity: quantity,
+                link: addToBagButton.dataset.productLink
+            });
+
+            addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Added to bag';
+
+            window.setTimeout(function () {
+                if (!addToBagButton.classList.contains("disabled")) {
+                    addToBagButton.innerHTML = '<span class="icon_bag_alt"></span> Add to bag';
+                }
+            }, 1500);
+        });
     }
 
     async function loadProductPage() {
@@ -342,8 +397,12 @@
     }
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", loadProductPage);
+        document.addEventListener("DOMContentLoaded", function () {
+            bindAddToBag();
+            loadProductPage();
+        });
     } else {
+        bindAddToBag();
         loadProductPage();
     }
 })();

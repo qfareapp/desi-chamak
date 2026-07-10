@@ -2311,6 +2311,12 @@ ol {
 	cursor: pointer;
 }
 
+.cart-remove-btn {
+	border: 0;
+	background: transparent;
+	padding: 0;
+}
+
 .cart__btn {
 	margin-bottom: 50px;
 }
