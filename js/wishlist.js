@@ -130,7 +130,7 @@
         });
 
         heartAnchors.forEach(function (anchor) {
-            anchor.setAttribute("href", "#");
+            anchor.setAttribute("href", "./wishlist.html");
 
             var tip = anchor.querySelector(".tip");
             if (!tip) {
