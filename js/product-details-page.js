@@ -222,14 +222,22 @@
 
     function renderProduct(product, allProducts) {
         var reviewCount = Number(product.reviewCount || 0);
+        var sellingPrice = product.price && product.price.selling ? Number(product.price.selling) : 0;
         var compareAt = product.price && product.price.compareAt ? Number(product.price.compareAt) : null;
         var title = product.name || "Product";
+        var priceHtml = formatPrice(sellingPrice);
+
+        if (compareAt && compareAt > sellingPrice) {
+            var discountPct = Math.round(((compareAt - sellingPrice) / compareAt) * 100);
+            priceHtml += " <span>" + formatPrice(compareAt) + "</span>";
+            priceHtml += ' <span class="price-off">' + discountPct + "% off</span>";
+        }
 
         document.title = "Desi Chamak | " + title;
         document.getElementById("product-breadcrumb-name").textContent = title;
         document.getElementById("product-title").innerHTML = escapeHtml(title) + ' <span id="product-subtitle">' + escapeHtml(product.subtitle || "") + "</span>";
         document.getElementById("product-review-count").textContent = "( " + reviewCount + " reviews )";
-        document.getElementById("product-price").innerHTML = formatPrice(product.price && product.price.selling ? product.price.selling : 0) + (compareAt ? " <span>" + formatPrice(compareAt) + "</span>" : "");
+        document.getElementById("product-price").innerHTML = priceHtml;
         document.getElementById("product-summary").textContent = product.summary || "No product summary available.";
 
         initGallery(getGalleryImages(product), title);
