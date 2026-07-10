@@ -127,6 +127,24 @@
   }
 }
 
+.checkout__status {
+  border-radius: 4px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+
+  &--success {
+    background: #eaf7ef;
+    color: #1f6b3a;
+  }
+
+  &--error {
+    background: #fdeeee;
+    color: #a33a3a;
+  }
+}
+
 .checkout__order {
   background: #f5f5f5;
   padding: 30px;
@@ -263,4 +281,15 @@
       }
     }
   }
+}
+
+.checkout__helper {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #666666;
+  margin-bottom: 12px;
+}
+
+.checkout__empty {
+  color: #666666;
 }
