@@ -774,24 +774,124 @@
       display: none;
     }
   
+    /* Shop cart: table rows become stacked cards on mobile, since the
+       desktop layout relies on fixed pixel column widths (585/190/190/150)
+       that badly overflow a phone viewport. */
     .shop__cart__table {
-      overflow-x: auto;
+      overflow-x: visible;
     }
-  
-    .shop__cart__table tbody tr .cart__product__item img {
-      float: none;
-      margin-right: 0;
+
+    .shop__cart__table table,
+    .shop__cart__table thead,
+    .shop__cart__table tbody {
+      display: block;
+      width: 100%;
     }
-  
+
+    .shop__cart__table thead {
+      display: none;
+    }
+
+    .shop__cart__table tbody tr {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      padding: 14px 44px 14px 14px;
+      margin-bottom: 12px;
+      background: $white-color;
+      border: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(17, 17, 17, 0.05);
+
+      &:hover {
+        background: $white-color;
+      }
+    }
+
+    .shop__cart__table tbody tr td {
+      display: block;
+      width: auto;
+      padding: 0;
+      border: none;
+      vertical-align: middle;
+    }
+
+    .shop__cart__table tbody tr .cart__product__item {
+      flex: 0 0 100%;
+      width: auto;
+      margin-bottom: 10px;
+
+      img {
+        float: none;
+        width: 60px;
+        height: 60px;
+        margin-right: 12px;
+      }
+
+      .cart__product__item__title h6 {
+        font-size: 13px;
+        line-height: 1.35;
+      }
+    }
+
+    .shop__cart__table tbody tr .cart__price {
+      order: 2;
+      width: auto;
+      font-size: 12px;
+      color: #999999;
+      font-weight: 500;
+      margin-right: 12px;
+    }
+
+    .shop__cart__table tbody tr .cart__quantity {
+      order: 3;
+      width: auto;
+      margin-right: auto;
+    }
+
+    .shop__cart__table tbody tr .cart__total {
+      order: 4;
+      width: auto;
+      font-size: 14px;
+    }
+
+    .shop__cart__table tbody tr .cart__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+
+    /* Continue Shopping / Refresh Bag: compact side-by-side pair
+       instead of two full-width blocks stacked with big gaps */
+    .cart__actions {
+      display: flex;
+      gap: 10px;
+
+      > [class*="col-"] {
+        flex: 1 1 0;
+        max-width: 100%;
+        width: auto;
+      }
+    }
+
     .cart__btn {
       text-align: center;
       margin-bottom: 25px;
     }
-  
+
     .cart__btn.update__btn {
       text-align: center;
     }
-  
+
+    .cart__btn a {
+      display: block;
+      padding: 12px 10px 10px;
+      font-size: 11px;
+    }
+
     .discount__content h6 {
       display: block;
       margin-right: 0;

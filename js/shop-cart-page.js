@@ -43,7 +43,7 @@
                     '<td class="cart__price">' + formatPrice(item.price) + "</td>",
                     '<td class="cart__quantity">',
                     '<div class="pro-qty" data-cart-qty="' + escapeHtml(item.id) + '">',
-                    '<span class="dec qtybtn">-</span>',
+                    '<span class="dec qtybtn' + (Number(item.quantity) <= 1 ? " disabled" : "") + '">-</span>',
                     '<input type="text" value="' + escapeHtml(item.quantity) + '" inputmode="numeric">',
                     '<span class="inc qtybtn">+</span>',
                     "</div>",
@@ -78,7 +78,7 @@
 
             var qtyWrap = event.target.closest("[data-cart-qty]");
             var qtyButton = event.target.closest(".qtybtn");
-            if (!qtyWrap || !qtyButton) {
+            if (!qtyWrap || !qtyButton || qtyButton.classList.contains("disabled")) {
                 return;
             }
 
