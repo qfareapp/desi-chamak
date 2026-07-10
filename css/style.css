@@ -3818,9 +3818,15 @@ ol {
 		padding-left: 0;
 		padding-top: 40px;
 	}
-	.contact__content {
-		margin-bottom: 40px;
-	}
+    .contact__content {
+      margin-bottom: 40px;
+    }
+
+    .footer__widget ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 18px;
+    }
 }
 
 /* Small Device = 320px */
