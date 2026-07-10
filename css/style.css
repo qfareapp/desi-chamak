@@ -4348,12 +4348,53 @@ body {
     .countdown__item span { font-size: 22px; }
     .countdown__item p { font-size: 12px; }
 
-    /* ── Services ── */
-    .services { padding-top: 44px; padding-bottom: 20px; }
-    .services__item { padding-left: 48px; margin-bottom: 22px; }
-    .services__item i { font-size: 26px; }
-    .services__item h6 { font-size: 13px; margin-bottom: 3px; }
-    .services__item p { font-size: 12px; }
+    /* ── Services: compact 2x2 badge grid ── */
+    .services { padding-top: 28px; padding-bottom: 14px; }
+    .services .row {
+        margin: 0;
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: 1fr 10px 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .services .row > [class*="col-"] {
+        width: 100%;
+        max-width: 100%;
+        -webkit-box-flex: 0;
+            -ms-flex: none;
+                flex: none;
+        padding: 0;
+    }
+    .services__item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        text-align: center;
+        padding: 14px 8px;
+        margin-bottom: 0;
+        background: #faf5f4;
+        border-radius: 10px;
+    }
+    .services__item i {
+        position: static;
+        font-size: 16px;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        border-radius: 50%;
+        background: rgba(202, 21, 21, 0.08);
+        margin-bottom: 8px;
+    }
+    .services__item h6 { font-size: 12px; margin-bottom: 0; }
+    .services__item p { display: none; }
 
     /* ── Instagram: 3-column grid ── */
     .instagram .container-fluid { padding: 0; }

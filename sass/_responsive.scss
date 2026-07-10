@@ -347,6 +347,60 @@
       padding-right: 15px;
     }
 
+    /* Services (trust badges): compact 2x2 badge grid instead of four
+       stacked full-width rows — mirrors the equivalent hand-authored
+       override in css/style.css's "Mobile — Comprehensive Homepage
+       Polish" block, which has no sass source of its own. */
+    .services {
+      padding-top: 28px;
+      padding-bottom: 14px;
+
+      .row {
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .row > [class*="col-"] {
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        padding: 0;
+      }
+    }
+
+    .services__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 14px 8px;
+      margin-bottom: 0;
+      background: #faf5f4;
+      border-radius: 10px;
+
+      i {
+        position: static;
+        font-size: 16px;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        border-radius: 50%;
+        background: rgba(202, 21, 21, 0.08);
+        margin-bottom: 8px;
+      }
+
+      h6 {
+        font-size: 12px;
+        margin-bottom: 0;
+      }
+
+      p {
+        display: none;
+      }
+    }
+
     .shop .col-lg-3.col-md-4 {
       display: none;
     }
