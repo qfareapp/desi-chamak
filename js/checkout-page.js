@@ -163,7 +163,7 @@
     }
 
     function bindCheckoutSubmit(form) {
-        form.addEventListener("submit", function (event) {
+        form.addEventListener("submit", async function (event) {
             event.preventDefault();
             clearStatus();
 
@@ -181,7 +181,7 @@
             var billing = getFormData(form);
             var order = buildOrder(cart, billing);
             var savedOrder = window.DesiChamakOrders && window.DesiChamakOrders.createOrder
-                ? window.DesiChamakOrders.createOrder(order)
+                ? await window.DesiChamakOrders.createOrder(order)
                 : order;
 
             if (!savedOrder) {
@@ -195,7 +195,7 @@
                 window.DesiChamakCart.write([]);
             }
             form.reset();
-            setStatus("Order placed. Reference: " + savedOrder.id, "success");
+            setStatus("Order placed. Reference: " + (savedOrder.reference || savedOrder.id), "success");
             renderOrderSummary([]);
         });
     }

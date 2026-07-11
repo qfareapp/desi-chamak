@@ -154,8 +154,17 @@
         detailFields.fulfillmentStatus.value = order.fulfillmentStatus;
     }
 
-    function renderAll(message) {
-        orders = window.DesiChamakOrders ? window.DesiChamakOrders.read() : [];
+    async function renderAll(message, isError) {
+        try {
+            orders = window.DesiChamakOrders ? await window.DesiChamakOrders.read() : [];
+        } catch (error) {
+            orders = [];
+            renderStats();
+            renderTable();
+            renderDetail();
+            setStatus(error.message || "Unable to load orders.", true);
+            return;
+        }
 
         if (!selectedOrderId && orders.length) {
             selectedOrderId = orders[0].id;
@@ -170,11 +179,11 @@
         renderDetail();
 
         if (message) {
-            setStatus(message, false);
+            setStatus(message, Boolean(isError));
         }
     }
 
-    function saveStatuses() {
+    async function saveStatuses() {
         var order = getSelectedOrder();
 
         if (!order || !window.DesiChamakOrders) {
@@ -184,11 +193,25 @@
         saveButton.disabled = true;
         setStatus("Saving order status...", false);
 
-        var updated = window.DesiChamakOrders.updateOrder(order.id, {
-            orderStatus: detailFields.orderStatus.value,
-            paymentStatus: detailFields.paymentStatus.value,
-            fulfillmentStatus: detailFields.fulfillmentStatus.value
-        });
+        var updated = null;
+
+        try {
+            updated = await window.DesiChamakOrders.updateOrder(order.id, {
+                customerName: order.customerName,
+                billing: order.billing,
+                items: order.items,
+                subtotal: order.subtotal,
+                total: order.total,
+                paymentFlow: order.paymentFlow,
+                orderStatus: detailFields.orderStatus.value,
+                paymentStatus: detailFields.paymentStatus.value,
+                fulfillmentStatus: detailFields.fulfillmentStatus.value
+            });
+        } catch (error) {
+            saveButton.disabled = false;
+            setStatus(error.message || "Unable to save order status.", true);
+            return;
+        }
 
         saveButton.disabled = false;
 
@@ -197,7 +220,7 @@
             return;
         }
 
-        renderAll("Order status updated.");
+        await renderAll("Order status updated.");
     }
 
     tableBody.addEventListener("click", function (event) {
@@ -215,8 +238,11 @@
     saveButton.addEventListener("click", saveStatuses);
 
     document.addEventListener("orders:updated", function () {
-        renderAll("Orders synced in real time.");
+        renderAll("Orders synced from backend.");
     });
 
     renderAll("Listening for live checkout orders.");
+    window.setInterval(function () {
+        renderAll();
+    }, 5000);
 })();

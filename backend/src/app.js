@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const healthRoutes = require("./routes/health.routes");
+const orderRoutes = require("./routes/orders.routes");
 const productRoutes = require("./routes/products.routes");
 const contentRoutes = require("./routes/content.routes");
 const uploadRoutes = require("./routes/uploads.routes");
@@ -20,6 +21,7 @@ app.get("/", (_req, res) => {
     message: "Desi Chamak backend is running",
     docs: {
       health: "/api/health",
+      orders: "/api/orders",
       products: "/api/products",
       sections: "/api/content-sections"
     }
@@ -27,6 +29,7 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/health", healthRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/content-sections", contentRoutes);
 app.use("/api/uploads", uploadRoutes);

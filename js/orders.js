@@ -1,12 +1,6 @@
 (function () {
-    var STORAGE_KEY = "desi_chamak_orders";
-
-    function safeParse(json) {
-        try {
-            return JSON.parse(json);
-        } catch (_error) {
-            return [];
-        }
+    function getApiBase() {
+        return window.DesiChamakApi ? window.DesiChamakApi.base() : "/api";
     }
 
     function formatId(value) {
@@ -33,7 +27,7 @@
     }
 
     function normalizeOrder(order) {
-        if (!order || !order.id) {
+        if (!order || !(order.id || order.reference)) {
             return null;
         }
 
@@ -48,7 +42,8 @@
         var customerName = String(order.customerName || (firstName + " " + lastName)).trim() || "Customer";
 
         return {
-            id: formatId(order.id),
+            id: formatId(order.id || order.reference),
+            reference: formatId(order.reference || order.id),
             createdAt: order.createdAt || new Date().toISOString(),
             customerName: customerName,
             billing: {
@@ -65,9 +60,9 @@
                 notes: billing.notes || ""
             },
             items: items,
-            itemCount: items.reduce(function (sum, item) {
+            itemCount: Number(order.itemCount || items.reduce(function (sum, item) {
                 return sum + Number(item.quantity || 0);
-            }, 0),
+            }, 0)),
             subtotal: subtotal,
             total: total,
             paymentFlow: order.paymentFlow || "confirm-before-payment",
@@ -81,18 +76,6 @@
         return orders.slice().sort(function (a, b) {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         });
-    }
-
-    function readOrders() {
-        var raw = "[]";
-
-        try {
-            raw = window.localStorage.getItem(STORAGE_KEY) || "[]";
-        } catch (_error) {
-            raw = "[]";
-        }
-
-        return sortOrders(safeParse(raw).map(normalizeOrder).filter(Boolean));
     }
 
     function emitOrdersUpdated(orders) {
@@ -115,57 +98,59 @@
         document.dispatchEvent(event);
     }
 
-    function writeOrders(orders) {
-        var normalized = sortOrders((orders || []).map(normalizeOrder).filter(Boolean));
-
-        try {
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
-            emitOrdersUpdated(normalized);
-            return true;
-        } catch (_error) {
-            return false;
-        }
-    }
-
-    function createOrder(order) {
-        var orders = readOrders();
-        var normalized = normalizeOrder(order);
-
-        if (!normalized) {
-            return null;
-        }
-
-        orders.unshift(normalized);
-        return writeOrders(orders) ? normalized : null;
-    }
-
-    function updateOrder(orderId, patch) {
-        var orders = readOrders();
-        var updatedOrder = null;
-
-        orders = orders.map(function (order) {
-            if (order.id !== orderId) {
-                return order;
-            }
-
-            updatedOrder = normalizeOrder({
-                id: order.id,
-                createdAt: order.createdAt,
-                customerName: patch && patch.customerName !== undefined ? patch.customerName : order.customerName,
-                billing: patch && patch.billing ? Object.assign({}, order.billing, patch.billing) : order.billing,
-                items: patch && patch.items ? patch.items : order.items,
-                subtotal: patch && patch.subtotal !== undefined ? patch.subtotal : order.subtotal,
-                total: patch && patch.total !== undefined ? patch.total : order.total,
-                paymentFlow: patch && patch.paymentFlow !== undefined ? patch.paymentFlow : order.paymentFlow,
-                orderStatus: patch && patch.orderStatus !== undefined ? patch.orderStatus : order.orderStatus,
-                paymentStatus: patch && patch.paymentStatus !== undefined ? patch.paymentStatus : order.paymentStatus,
-                fulfillmentStatus: patch && patch.fulfillmentStatus !== undefined ? patch.fulfillmentStatus : order.fulfillmentStatus
-            });
-
-            return updatedOrder;
+    async function request(path, options) {
+        var response = await fetch(getApiBase() + path, options || {});
+        var payload = await response.json().catch(function () {
+            return {};
         });
 
-        return updatedOrder && writeOrders(orders) ? updatedOrder : null;
+        if (!response.ok) {
+            throw new Error(payload.error || "Unable to process order request.");
+        }
+
+        return payload;
+    }
+
+    async function readOrders() {
+        var payload = await request("/orders");
+        return sortOrders((payload || []).map(normalizeOrder).filter(Boolean));
+    }
+
+    async function createOrder(order) {
+        var payload = await request("/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(order)
+        });
+        var normalized = normalizeOrder(payload);
+
+        if (normalized) {
+            emitOrdersUpdated(await readOrders());
+        }
+
+        return normalized;
+    }
+
+    async function updateOrder(orderId, patch) {
+        var payload = await request("/orders/" + encodeURIComponent(orderId), {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: orderId,
+                ...patch
+            })
+        });
+        var normalized = normalizeOrder(payload);
+
+        if (normalized) {
+            emitOrdersUpdated(await readOrders());
+        }
+
+        return normalized;
     }
 
     function getMetrics(orders) {
@@ -201,15 +186,8 @@
 
     window.DesiChamakOrders = {
         read: readOrders,
-        write: writeOrders,
         createOrder: createOrder,
         updateOrder: updateOrder,
         metrics: getMetrics
     };
-
-    window.addEventListener("storage", function (event) {
-        if (event.key === STORAGE_KEY) {
-            emitOrdersUpdated(readOrders());
-        }
-    });
 })();

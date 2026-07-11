@@ -39,12 +39,18 @@
         return value.charAt(0).toUpperCase() + value.slice(1);
     }
 
-    function renderDashboard() {
+    async function renderDashboard() {
         if (!window.DesiChamakOrders) {
             return;
         }
 
-        var orders = window.DesiChamakOrders.read();
+        var orders = [];
+        try {
+            orders = await window.DesiChamakOrders.read();
+        } catch (_error) {
+            orders = [];
+        }
+
         var metrics = window.DesiChamakOrders.metrics(orders);
         var tbody = document.getElementById("dashboard-orders-body");
 
@@ -76,11 +82,17 @@
         }).join("");
     }
 
-    document.addEventListener("orders:updated", renderDashboard);
+    document.addEventListener("orders:updated", function () {
+        renderDashboard();
+    });
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", renderDashboard);
     } else {
         renderDashboard();
     }
+
+    window.setInterval(function () {
+        renderDashboard();
+    }, 5000);
 })();
