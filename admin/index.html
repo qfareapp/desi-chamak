@@ -14,7 +14,7 @@
             <div class="brand">Desi Chamak Admin</div>
             <ul>
                 <li class="active"><span class="fa fa-dashboard"></span> Dashboard</li>
-                <li><span class="fa fa-shopping-bag"></span> Orders</li>
+                <li><a class="nav-link" href="orders.html"><span class="fa fa-shopping-bag"></span> Orders</a></li>
                 <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
                 <li><span class="fa fa-users"></span> Customers</li>
                 <li><span class="fa fa-bar-chart"></span> Analytics</li>
@@ -41,7 +41,7 @@
                 <button type="button" class="admin-nav-toggle" data-admin-nav-toggle><span class="fa fa-bars"></span><span>Menu</span></button>
                 <div>
                     <h1>Dashboard</h1>
-                    <p>Quick overview of store health</p>
+                    <p>Quick overview of live storefront order flow</p>
                 </div>
                 <div class="user-chip">
                     <span class="fa fa-user-circle"></span>
@@ -52,30 +52,30 @@
             <section class="cards row">
                 <div class="col-md-3 col-sm-6">
                     <div class="card kpi">
-                        <p class="label">Today’s Orders</p>
-                        <h3>128</h3>
-                        <span class="trend positive"><i class="fa fa-arrow-up"></i> 6%</span>
+                        <p class="label">Today's Orders</p>
+                        <h3 id="dashboard-stat-today">0</h3>
+                        <span class="trend positive"><i class="fa fa-arrow-up"></i> live</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="card kpi">
                         <p class="label">Revenue</p>
-                        <h3>₹ 2.8L</h3>
-                        <span class="trend positive"><i class="fa fa-arrow-up"></i> 4%</span>
+                        <h3 id="dashboard-stat-revenue">Rs. 0</h3>
+                        <span class="trend positive"><i class="fa fa-arrow-up"></i> booked</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="card kpi">
                         <p class="label">Pending Shipments</p>
-                        <h3>42</h3>
-                        <span class="trend neutral"><i class="fa fa-minus"></i> on track</span>
+                        <h3 id="dashboard-stat-pending">0</h3>
+                        <span class="trend neutral"><i class="fa fa-minus"></i> to fulfill</span>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="card kpi">
-                        <p class="label">Low Stock SKUs</p>
-                        <h3>8</h3>
-                        <span class="trend negative"><i class="fa fa-arrow-down"></i> restock</span>
+                        <p class="label">Open Orders</p>
+                        <h3 id="dashboard-stat-open">0</h3>
+                        <span class="trend negative"><i class="fa fa-arrow-down"></i> monitor</span>
                     </div>
                 </div>
             </section>
@@ -83,7 +83,7 @@
             <section class="card table-card">
                 <div class="card-header">
                     <h4>Recent Orders</h4>
-                    <a class="link" href="#">View all</a>
+                    <a class="link" href="orders.html">View all</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -97,30 +97,9 @@
                                 <th>Placed</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="dashboard-orders-body">
                             <tr>
-                                <td>#1024</td>
-                                <td>Ananya K.</td>
-                                <td>3</td>
-                                <td>₹ 3,299</td>
-                                <td><span class="badge badge-success">Paid</span></td>
-                                <td>Today, 10:12</td>
-                            </tr>
-                            <tr>
-                                <td>#1023</td>
-                                <td>Rhea S.</td>
-                                <td>1</td>
-                                <td>₹ 1,899</td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>Today, 09:50</td>
-                            </tr>
-                            <tr>
-                                <td>#1022</td>
-                                <td>Maya T.</td>
-                                <td>2</td>
-                                <td>₹ 2,299</td>
-                                <td><span class="badge badge-info">Processing</span></td>
-                                <td>Yesterday</td>
+                                <td colspan="6" class="text-center muted">Loading live orders...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -146,9 +125,9 @@
                             <h4>Tasks</h4>
                         </div>
                         <ul class="list-unstyled mb-0">
-                            <li><span>Approve 6 return requests</span><span class="muted">Today</span></li>
-                            <li><span>Restock Mirror Chandbalis</span><span class="muted">2 days</span></li>
-                            <li><span>Schedule festive banner</span><span class="muted">This week</span></li>
+                            <li><span>Confirm newly placed orders</span><span class="muted">Now</span></li>
+                            <li><span>Pack pending fulfillment queue</span><span class="muted">Today</span></li>
+                            <li><span>Review payment pending orders</span><span class="muted">Daily</span></li>
                         </ul>
                     </div>
                 </div>
@@ -156,5 +135,7 @@
         </main>
     </div>
     <script src="./admin-nav.js"></script>
+    <script src="../js/orders.js"></script>
+    <script src="./dashboard-admin.js"></script>
 </body>
 </html>

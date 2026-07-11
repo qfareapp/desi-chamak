@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Orders</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li class="active"><a class="nav-link" href="orders.html"><span class="fa fa-shopping-bag"></span> Orders</a></li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><span class="fa fa-users"></span> Customers</li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <button type="button" class="admin-nav-overlay" data-admin-nav-close aria-label="Close navigation"></button>
+        <main class="content">
+            <header class="topbar">
+                <button type="button" class="admin-nav-toggle" data-admin-nav-toggle><span class="fa fa-bars"></span><span>Menu</span></button>
+                <div>
+                    <h1>Orders</h1>
+                    <p>Live order intake from storefront checkout</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="stat-grid">
+                <div class="card section-stat">
+                    <p class="label">Today's orders</p>
+                    <h3 id="orders-stat-today">0</h3>
+                    <small class="muted">Orders placed today</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Open orders</p>
+                    <h3 id="orders-stat-open">0</h3>
+                    <small class="muted">New and confirmed orders</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Pending fulfillment</p>
+                    <h3 id="orders-stat-fulfillment">0</h3>
+                    <small class="muted">Orders not yet fulfilled</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Revenue</p>
+                    <h3 id="orders-stat-revenue">Rs. 0</h3>
+                    <small class="muted">Total booked order value</small>
+                </div>
+            </section>
+
+            <section class="split-layout split-layout--orders">
+                <div>
+                    <section class="card table-card">
+                        <div class="card-header">
+                            <h4>Incoming Orders</h4>
+                            <small class="muted" id="orders-status">Listening for new orders...</small>
+                        </div>
+                        <div class="table-dark-shell">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Customer</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Order</th>
+                                        <th>Payment</th>
+                                        <th>Placed</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-table-body">
+                                    <tr>
+                                        <td colspan="7" class="text-center muted">Loading orders...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <aside>
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Order Detail</h4>
+                            <small class="muted">Select an order to review or update</small>
+                        </div>
+                        <div id="order-detail-empty" class="muted">No order selected yet.</div>
+                        <div id="order-detail-panel" hidden>
+                            <div class="order-detail-grid">
+                                <div>
+                                    <p class="label">Reference</p>
+                                    <h4 id="order-detail-id">-</h4>
+                                </div>
+                                <div>
+                                    <p class="label">Placed</p>
+                                    <h4 id="order-detail-created">-</h4>
+                                </div>
+                            </div>
+                            <div class="order-detail-block">
+                                <p class="label">Customer</p>
+                                <strong id="order-detail-customer">-</strong>
+                                <div class="muted" id="order-detail-contact">-</div>
+                                <div class="muted" id="order-detail-address">-</div>
+                            </div>
+                            <div class="order-detail-block">
+                                <p class="label">Items</p>
+                                <ul class="detail-list" id="order-detail-items"></ul>
+                            </div>
+                            <div class="order-detail-grid">
+                                <div class="form-group">
+                                    <label for="order-status-field">Order Status</label>
+                                    <select class="form-control" id="order-status-field">
+                                        <option value="new">New</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="payment-status-field">Payment</label>
+                                    <select class="form-control" id="payment-status-field">
+                                        <option value="pending">Pending</option>
+                                        <option value="paid">Paid</option>
+                                        <option value="failed">Failed</option>
+                                        <option value="refunded">Refunded</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="fulfillment-status-field">Fulfillment</label>
+                                <select class="form-control" id="fulfillment-status-field">
+                                    <option value="unfulfilled">Unfulfilled</option>
+                                    <option value="packed">Packed</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="fulfilled">Fulfilled</option>
+                                </select>
+                            </div>
+                            <div class="order-detail-total">
+                                <span>Total</span>
+                                <strong id="order-detail-total">Rs. 0</strong>
+                            </div>
+                            <div class="inline-actions">
+                                <button type="button" class="btn btn-ox" id="save-order-status-btn">Save Status</button>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </section>
+        </main>
+    </div>
+    <script src="./admin-nav.js"></script>
+    <script src="../js/orders.js"></script>
+    <script src="./orders-admin.js"></script>
+</body>
+</html>

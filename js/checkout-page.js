@@ -150,11 +150,15 @@
         return {
             id: "DC-" + Date.now(),
             createdAt: new Date().toISOString(),
+            customerName: (billing.firstName + " " + billing.lastName).trim(),
             billing: billing,
             items: cart,
             subtotal: total,
             total: total,
-            paymentFlow: "confirm-before-payment"
+            paymentFlow: "confirm-before-payment",
+            orderStatus: "new",
+            paymentStatus: "pending",
+            fulfillmentStatus: "unfulfilled"
         };
     }
 
@@ -176,14 +180,22 @@
 
             var billing = getFormData(form);
             var order = buildOrder(cart, billing);
+            var savedOrder = window.DesiChamakOrders && window.DesiChamakOrders.createOrder
+                ? window.DesiChamakOrders.createOrder(order)
+                : order;
 
-            saveLastOrder(order);
+            if (!savedOrder) {
+                setStatus("Unable to save the order right now. Please try again.", "error");
+                return;
+            }
+
+            saveLastOrder(savedOrder);
             clearDraft();
             if (window.DesiChamakCart && window.DesiChamakCart.write) {
                 window.DesiChamakCart.write([]);
             }
             form.reset();
-            setStatus("Order placed. Reference: " + order.id, "success");
+            setStatus("Order placed. Reference: " + savedOrder.id, "success");
             renderOrderSummary([]);
         });
     }

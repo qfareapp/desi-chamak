@@ -1,0 +1,222 @@
+(function () {
+    var orders = [];
+    var selectedOrderId = "";
+
+    var statusNode = document.getElementById("orders-status");
+    var tableBody = document.getElementById("orders-table-body");
+    var statToday = document.getElementById("orders-stat-today");
+    var statOpen = document.getElementById("orders-stat-open");
+    var statFulfillment = document.getElementById("orders-stat-fulfillment");
+    var statRevenue = document.getElementById("orders-stat-revenue");
+    var emptyPanel = document.getElementById("order-detail-empty");
+    var detailPanel = document.getElementById("order-detail-panel");
+    var saveButton = document.getElementById("save-order-status-btn");
+
+    var detailFields = {
+        id: document.getElementById("order-detail-id"),
+        created: document.getElementById("order-detail-created"),
+        customer: document.getElementById("order-detail-customer"),
+        contact: document.getElementById("order-detail-contact"),
+        address: document.getElementById("order-detail-address"),
+        items: document.getElementById("order-detail-items"),
+        total: document.getElementById("order-detail-total"),
+        orderStatus: document.getElementById("order-status-field"),
+        paymentStatus: document.getElementById("payment-status-field"),
+        fulfillmentStatus: document.getElementById("fulfillment-status-field")
+    };
+
+    function formatPrice(value) {
+        return "Rs. " + Number(value || 0).toLocaleString("en-IN");
+    }
+
+    function escapeHtml(value) {
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    function formatDate(value) {
+        var date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return "-";
+        }
+
+        return date.toLocaleString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function badgeClass(value) {
+        if (value === "paid" || value === "completed" || value === "fulfilled") {
+            return "badge-success";
+        }
+
+        if (value === "pending" || value === "new" || value === "confirmed" || value === "packed") {
+            return "badge-warning";
+        }
+
+        if (value === "processing" || value === "shipped") {
+            return "badge-info";
+        }
+
+        return "badge-secondary";
+    }
+
+    function titleCase(value) {
+        var normalized = String(value || "").replace(/-/g, " ");
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+    }
+
+    function setStatus(message, isError) {
+        statusNode.textContent = message;
+        statusNode.style.color = isError ? "#f4b6b6" : "";
+    }
+
+    function getSelectedOrder() {
+        return orders.find(function (order) {
+            return order.id === selectedOrderId;
+        }) || null;
+    }
+
+    function renderStats() {
+        var metrics = window.DesiChamakOrders ? window.DesiChamakOrders.metrics(orders) : {
+            todayOrders: 0,
+            openOrders: 0,
+            pendingFulfillment: 0,
+            totalRevenue: 0
+        };
+
+        statToday.textContent = String(metrics.todayOrders || 0);
+        statOpen.textContent = String(metrics.openOrders || 0);
+        statFulfillment.textContent = String(metrics.pendingFulfillment || 0);
+        statRevenue.textContent = formatPrice(metrics.totalRevenue || 0);
+    }
+
+    function renderTable() {
+        if (!orders.length) {
+            tableBody.innerHTML = '<tr><td colspan="7" class="text-center muted">No orders placed yet. New checkout orders will appear here automatically.</td></tr>';
+            return;
+        }
+
+        tableBody.innerHTML = orders.map(function (order) {
+            var activeClass = order.id === selectedOrderId ? ' class="active-row"' : "";
+
+            return [
+                "<tr" + activeClass + ' data-order-id="' + escapeHtml(order.id) + '">',
+                "<td>" + escapeHtml(order.id) + "</td>",
+                "<td>" + escapeHtml(order.customerName) + "</td>",
+                "<td>" + escapeHtml(order.itemCount) + "</td>",
+                "<td>" + formatPrice(order.total) + "</td>",
+                '<td><span class="badge ' + badgeClass(order.orderStatus) + '">' + escapeHtml(titleCase(order.orderStatus)) + "</span></td>",
+                '<td><span class="badge ' + badgeClass(order.paymentStatus) + '">' + escapeHtml(titleCase(order.paymentStatus)) + "</span></td>",
+                "<td>" + escapeHtml(formatDate(order.createdAt)) + "</td>",
+                "</tr>"
+            ].join("");
+        }).join("");
+    }
+
+    function renderDetail() {
+        var order = getSelectedOrder();
+
+        if (!order) {
+            emptyPanel.hidden = false;
+            detailPanel.hidden = true;
+            return;
+        }
+
+        emptyPanel.hidden = true;
+        detailPanel.hidden = false;
+        detailFields.id.textContent = order.id;
+        detailFields.created.textContent = formatDate(order.createdAt);
+        detailFields.customer.textContent = order.customerName;
+        detailFields.contact.textContent = [order.billing.phone, order.billing.email].filter(Boolean).join(" | ") || "-";
+        detailFields.address.textContent = [
+            order.billing.addressLine1,
+            order.billing.addressLine2,
+            order.billing.city,
+            order.billing.state,
+            order.billing.postcode,
+            order.billing.country
+        ].filter(Boolean).join(", ") || "-";
+        detailFields.items.innerHTML = order.items.map(function (item) {
+            return "<li>" + escapeHtml(item.name) + " x " + escapeHtml(item.quantity) + ' <span class="muted">' + formatPrice(Number(item.price || 0) * Number(item.quantity || 0)) + "</span></li>";
+        }).join("");
+        detailFields.total.textContent = formatPrice(order.total);
+        detailFields.orderStatus.value = order.orderStatus;
+        detailFields.paymentStatus.value = order.paymentStatus;
+        detailFields.fulfillmentStatus.value = order.fulfillmentStatus;
+    }
+
+    function renderAll(message) {
+        orders = window.DesiChamakOrders ? window.DesiChamakOrders.read() : [];
+
+        if (!selectedOrderId && orders.length) {
+            selectedOrderId = orders[0].id;
+        }
+
+        if (selectedOrderId && !getSelectedOrder()) {
+            selectedOrderId = orders[0] ? orders[0].id : "";
+        }
+
+        renderStats();
+        renderTable();
+        renderDetail();
+
+        if (message) {
+            setStatus(message, false);
+        }
+    }
+
+    function saveStatuses() {
+        var order = getSelectedOrder();
+
+        if (!order || !window.DesiChamakOrders) {
+            return;
+        }
+
+        saveButton.disabled = true;
+        setStatus("Saving order status...", false);
+
+        var updated = window.DesiChamakOrders.updateOrder(order.id, {
+            orderStatus: detailFields.orderStatus.value,
+            paymentStatus: detailFields.paymentStatus.value,
+            fulfillmentStatus: detailFields.fulfillmentStatus.value
+        });
+
+        saveButton.disabled = false;
+
+        if (!updated) {
+            setStatus("Unable to save order status.", true);
+            return;
+        }
+
+        renderAll("Order status updated.");
+    }
+
+    tableBody.addEventListener("click", function (event) {
+        var row = event.target.closest("tr[data-order-id]");
+
+        if (!row) {
+            return;
+        }
+
+        selectedOrderId = row.getAttribute("data-order-id");
+        renderTable();
+        renderDetail();
+    });
+
+    saveButton.addEventListener("click", saveStatuses);
+
+    document.addEventListener("orders:updated", function () {
+        renderAll("Orders synced in real time.");
+    });
+
+    renderAll("Listening for live checkout orders.");
+})();
