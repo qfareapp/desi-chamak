@@ -229,6 +229,10 @@
     }
 
     tableBody.addEventListener("click", function (event) {
+        if (event.target.closest(".admin-order-status-select")) {
+            return;
+        }
+
         var row = event.target.closest("tr[data-order-id]");
 
         if (!row) {
