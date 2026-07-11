@@ -2844,6 +2844,63 @@ ol {
 	color: #666666;
 }
 
+.customer-order {
+	border: 1px solid #ebebeb;
+	border-radius: 14px;
+	padding: 24px;
+}
+
+.customer-order__head {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 18px;
+}
+
+.customer-order__head h5 {
+	margin-bottom: 6px;
+}
+
+.customer-order__meta {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	gap: 12px 24px;
+	margin-bottom: 18px;
+	color: #444444;
+}
+
+.customer-order__items {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.customer-order__item {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 0;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.customer-order__item:last-child {
+	border-bottom: none;
+}
+
 /*---------------------
     Blog
 -----------------------*/

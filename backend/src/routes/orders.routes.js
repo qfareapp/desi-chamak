@@ -46,7 +46,7 @@ function normalizePayload(body) {
       state: String(billing.state || "").trim(),
       postcode: String(billing.postcode || "").trim(),
       phone: String(billing.phone || "").trim(),
-      email: String(billing.email || "").trim(),
+      email: String(billing.email || "").trim().toLowerCase(),
       notes: String(billing.notes || "").trim()
     },
     items,
@@ -54,7 +54,7 @@ function normalizePayload(body) {
     subtotal,
     total,
     paymentFlow: String(body.paymentFlow || "confirm-before-payment").trim(),
-    orderStatus: String(body.orderStatus || "new").trim().toLowerCase(),
+    orderStatus: String(body.orderStatus || "confirmed").trim().toLowerCase(),
     paymentStatus: String(body.paymentStatus || "pending").trim().toLowerCase(),
     fulfillmentStatus: String(body.fulfillmentStatus || "unfulfilled").trim().toLowerCase()
   };
@@ -81,7 +81,21 @@ function mapOrder(order) {
 
 router.get("/", async (_req, res, next) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 });
+    const filter = {};
+
+    if (_req.query.reference) {
+      filter.reference = toReference(_req.query.reference);
+    }
+
+    if (_req.query.email) {
+      filter["billing.email"] = String(_req.query.email).trim().toLowerCase();
+    }
+
+    if (_req.query.phone) {
+      filter["billing.phone"] = String(_req.query.phone).trim();
+    }
+
+    const orders = await Order.find(filter).sort({ createdAt: -1 });
     res.json(orders.map(mapOrder));
   } catch (error) {
     next(error);

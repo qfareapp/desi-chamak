@@ -111,8 +111,22 @@
         return payload;
     }
 
-    async function readOrders() {
-        var payload = await request("/orders");
+    async function readOrders(filters) {
+        var params = new URLSearchParams();
+
+        if (filters && filters.reference) {
+            params.set("reference", filters.reference);
+        }
+
+        if (filters && filters.email) {
+            params.set("email", filters.email);
+        }
+
+        if (filters && filters.phone) {
+            params.set("phone", filters.phone);
+        }
+
+        var payload = await request("/orders" + (params.toString() ? "?" + params.toString() : ""));
         return sortOrders((payload || []).map(normalizeOrder).filter(Boolean));
     }
 

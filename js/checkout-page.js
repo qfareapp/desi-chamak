@@ -1,6 +1,7 @@
 (function () {
     var DRAFT_KEY = "desi_chamak_checkout_draft";
     var LAST_ORDER_KEY = "desi_chamak_last_order";
+    var CUSTOMER_KEY = "desi_chamak_customer_orders";
 
     function formatPrice(value) {
         return "Rs. " + Number(value || 0).toLocaleString("en-IN");
@@ -47,6 +48,17 @@
     function saveLastOrder(order) {
         try {
             window.localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(order));
+        } catch (_error) {
+        }
+    }
+
+    function saveCustomerContext(order) {
+        try {
+            window.localStorage.setItem(CUSTOMER_KEY, JSON.stringify({
+                reference: order.reference || order.id || "",
+                email: order.billing && order.billing.email ? order.billing.email : "",
+                phone: order.billing && order.billing.phone ? order.billing.phone : ""
+            }));
         } catch (_error) {
         }
     }
@@ -156,7 +168,7 @@
             subtotal: total,
             total: total,
             paymentFlow: "confirm-before-payment",
-            orderStatus: "new",
+            orderStatus: "confirmed",
             paymentStatus: "pending",
             fulfillmentStatus: "unfulfilled"
         };
@@ -190,6 +202,7 @@
             }
 
             saveLastOrder(savedOrder);
+            saveCustomerContext(savedOrder);
             clearDraft();
             if (window.DesiChamakCart && window.DesiChamakCart.write) {
                 window.DesiChamakCart.write([]);

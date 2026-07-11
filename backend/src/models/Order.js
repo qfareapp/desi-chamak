@@ -91,7 +91,8 @@ const billingSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      lowercase: true
     },
     notes: {
       type: String,
@@ -152,8 +153,8 @@ const orderSchema = new mongoose.Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["new", "confirmed", "processing", "completed", "cancelled"],
-      default: "new"
+      enum: ["confirmed", "packed", "dispatched", "delivered"],
+      default: "confirmed"
     },
     paymentStatus: {
       type: String,

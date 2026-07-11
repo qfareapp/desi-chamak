@@ -54,15 +54,15 @@
     }
 
     function badgeClass(value) {
-        if (value === "paid" || value === "completed" || value === "fulfilled") {
+        if (value === "paid" || value === "delivered" || value === "fulfilled") {
             return "badge-success";
         }
 
-        if (value === "pending" || value === "new" || value === "confirmed" || value === "packed") {
+        if (value === "pending" || value === "confirmed" || value === "packed") {
             return "badge-warning";
         }
 
-        if (value === "processing" || value === "shipped") {
+        if (value === "dispatched" || value === "shipped") {
             return "badge-info";
         }
 
@@ -114,7 +114,12 @@
                 "<td>" + escapeHtml(order.customerName) + "</td>",
                 "<td>" + escapeHtml(order.itemCount) + "</td>",
                 "<td>" + formatPrice(order.total) + "</td>",
-                '<td><span class="badge ' + badgeClass(order.orderStatus) + '">' + escapeHtml(titleCase(order.orderStatus)) + "</span></td>",
+                '<td><select class="form-control form-control-sm admin-order-status-select" data-order-id="' + escapeHtml(order.id) + '">' +
+                    '<option value="confirmed"' + (order.orderStatus === "confirmed" ? " selected" : "") + '>Confirmed</option>' +
+                    '<option value="packed"' + (order.orderStatus === "packed" ? " selected" : "") + '>Packed</option>' +
+                    '<option value="dispatched"' + (order.orderStatus === "dispatched" ? " selected" : "") + '>Dispatched</option>' +
+                    '<option value="delivered"' + (order.orderStatus === "delivered" ? " selected" : "") + '>Delivered</option>' +
+                "</select></td>",
                 '<td><span class="badge ' + badgeClass(order.paymentStatus) + '">' + escapeHtml(titleCase(order.paymentStatus)) + "</span></td>",
                 "<td>" + escapeHtml(formatDate(order.createdAt)) + "</td>",
                 "</tr>"
@@ -233,6 +238,42 @@
         selectedOrderId = row.getAttribute("data-order-id");
         renderTable();
         renderDetail();
+    });
+
+    tableBody.addEventListener("change", async function (event) {
+        var select = event.target.closest(".admin-order-status-select");
+        var order;
+
+        if (!select || !window.DesiChamakOrders) {
+            return;
+        }
+
+        order = orders.find(function (item) {
+            return item.id === select.getAttribute("data-order-id");
+        });
+
+        if (!order) {
+            return;
+        }
+
+        setStatus("Updating order status...", false);
+
+        try {
+            await window.DesiChamakOrders.updateOrder(order.id, {
+                customerName: order.customerName,
+                billing: order.billing,
+                items: order.items,
+                subtotal: order.subtotal,
+                total: order.total,
+                paymentFlow: order.paymentFlow,
+                orderStatus: select.value,
+                paymentStatus: order.paymentStatus,
+                fulfillmentStatus: order.fulfillmentStatus
+            });
+            await renderAll("Order status updated.");
+        } catch (error) {
+            setStatus(error.message || "Unable to update order status.", true);
+        }
     });
 
     saveButton.addEventListener("click", saveStatuses);

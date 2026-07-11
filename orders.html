@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Desi Chamak wishlist">
-    <meta name="keywords" content="Desi Chamak, wishlist, oxidised jewellery">
+    <meta name="description" content="Track your Desi Chamak orders">
+    <meta name="keywords" content="Desi Chamak, orders, order tracking">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Desi Chamak | Wishlist</title>
+    <title>Desi Chamak | Orders</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -21,11 +20,8 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
-
 <body>
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+    <div id="preloder"><div class="loader"></div></div>
 
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -39,29 +35,38 @@
             <a href="./index.html">Desi Chamak</a>
         </div>
         <div id="mobile-menu-wrap"></div>
+        <nav class="header__menu mobile-only">
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./shop.html">Shop</a></li>
+                <li class="active"><a href="./orders.html">Orders</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
     </div>
 
     <header class="header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo brand-mark">
-                        <a href="./index.html">Desi Chamak</a>
-                    </div>
+                    <div class="header__logo brand-mark"><a href="./index.html">Desi Chamak</a></div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
                             <li><a href="./index.html">Home</a></li>
                             <li><a href="./shop.html">Shop</a></li>
-                            <li><a href="./orders.html">Orders</a></li>
-                            <li class="active"><a href="./wishlist.html">Wishlist</a></li>
+                            <li class="active"><a href="./orders.html">Orders</a></li>
                             <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
+                        <div class="header__right__auth">
+                            <a href="./wishlist.html">Wishlist</a>
+                            <a href="./orders.html">Orders</a>
+                        </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="./wishlist.html"><span class="icon_heart_alt"></span><div class="tip">0</div></a></li>
@@ -70,9 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div class="canvas__open">
-                <i class="fa fa-bars"></i>
-            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
     </header>
 
@@ -82,7 +85,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Wishlist</span>
+                        <span>Orders</span>
                     </div>
                 </div>
             </div>
@@ -93,48 +96,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shop__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="wishlist-body">
-                                <tr>
-                                    <td colspan="4" class="text-center">Loading your wishlist...</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="section-title">
+                        <h4>Your Orders</h4>
+                        <p>Track order status using your order reference, email, or phone.</p>
                     </div>
                 </div>
             </div>
-            <div class="row cart__actions">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn">
-                        <a href="./shop.html">Continue Shopping</a>
+            <form id="customer-orders-form" class="checkout__form mb-4" novalidate>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__form__input">
+                            <p>Order Reference</p>
+                            <input type="text" id="customer-order-reference" placeholder="DC-1234567890">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__form__input">
+                            <p>Email</p>
+                            <input type="email" id="customer-order-email" placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__form__input">
+                            <p>Phone</p>
+                            <input type="text" id="customer-order-phone" placeholder="9876543210">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <button type="submit" class="site-btn">View Orders</button>
+                        <p id="orders-page-status" class="mt-3 mb-0"></p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="cart__btn update__btn">
-                        <a href="./wishlist.html"><span class="icon_loading"></span> Refresh wishlist</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 offset-lg-8">
-                    <div class="cart__total__procced">
-                        <h6>Wishlist summary</h6>
-                        <ul>
-                            <li>Saved items value <span id="wishlist-subtotal">Rs. 0</span></li>
-                            <li>Total <span id="wishlist-total">Rs. 0</span></li>
-                        </ul>
-                        <a href="./shop.html" class="primary-btn">Browse more products</a>
-                    </div>
-                </div>
+            </form>
+            <div class="row" id="customer-orders-list">
+                <div class="col-12"><div class="text-center p-5 border">Loading orders...</div></div>
             </div>
         </div>
     </section>
@@ -157,10 +152,11 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/api-base.js"></script>
     <script src="js/cart.js"></script>
+    <script src="js/orders.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/wishlist-page.js"></script>
+    <script src="js/orders-page.js"></script>
 </body>
-
 </html>
