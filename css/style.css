@@ -5206,3 +5206,91 @@ body {
         height: min(124vw, 500px);
     }
 }
+
+.account-page {
+    background: #faf7f2;
+}
+
+.account-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 36px 32px;
+    margin-bottom: 30px;
+}
+
+.account-card h5 {
+    font-size: 22px;
+    margin-bottom: 24px;
+    color: #111111;
+}
+
+.account-card--member {
+    max-width: 720px;
+}
+
+.account-status {
+    margin-bottom: 24px;
+    padding: 14px 18px;
+    border-radius: 4px;
+    background: #f3f3f3;
+    color: #111111;
+}
+
+.account-status--success {
+    background: #edf8ef;
+    color: #256c38;
+}
+
+.account-status--error {
+    background: #fff0f0;
+    color: #b83333;
+}
+
+.account-summary {
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.account-summary li {
+    font-size: 15px;
+    color: #444444;
+    margin-bottom: 12px;
+}
+
+.account-actions {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    gap: 12px;
+}
+
+.site-btn--ghost {
+    background: transparent;
+    color: #111111;
+    border: 1px solid #111111;
+}
+
+.site-btn--ghost:hover,
+.site-btn--ghost:focus {
+    background: #111111;
+    color: #ffffff;
+}
+
+@media only screen and (max-width: 767px) {
+    .account-card {
+        padding: 28px 20px;
+    }
+
+    .account-actions {
+        display: block;
+    }
+
+    .account-actions .site-btn {
+        width: 100%;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+}

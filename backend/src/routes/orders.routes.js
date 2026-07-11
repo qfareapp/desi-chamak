@@ -1,6 +1,7 @@
 const express = require("express");
 
 const Order = require("../models/Order");
+const { findCustomerFromRequest } = require("../utils/auth");
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ function toReference(value) {
     .replace(/[^A-Z0-9-]/g, "");
 }
 
-function normalizePayload(body) {
+function normalizePayload(body, customer) {
   const items = Array.isArray(body.items)
     ? body.items.map((item) => ({
         id: String(item.id || "").trim(),
@@ -34,6 +35,7 @@ function normalizePayload(body) {
     [billing.firstName, billing.lastName].filter(Boolean).join(" ").trim();
 
   return {
+    customerId: customer ? customer._id : null,
     reference: toReference(body.reference || body.id || `DC-${Date.now()}`),
     customerName,
     billing: {
@@ -62,6 +64,7 @@ function normalizePayload(body) {
 
 function mapOrder(order) {
   return {
+    customerId: order.customerId ? String(order.customerId) : "",
     id: order.reference,
     reference: order.reference,
     customerName: order.customerName,
@@ -82,6 +85,15 @@ function mapOrder(order) {
 router.get("/", async (_req, res, next) => {
   try {
     const filter = {};
+    const customer = _req.query.mine === "true" ? await findCustomerFromRequest(_req) : null;
+
+    if (_req.query.mine === "true") {
+      if (!customer) {
+        return res.status(401).json({ error: "Authentication required." });
+      }
+
+      filter.customerId = customer._id;
+    }
 
     if (_req.query.reference) {
       filter.reference = toReference(_req.query.reference);
@@ -118,7 +130,8 @@ router.get("/:reference", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const payload = normalizePayload(req.body);
+    const customer = await findCustomerFromRequest(req);
+    const payload = normalizePayload(req.body, customer);
     const order = await Order.create(payload);
     res.status(201).json(mapOrder(order));
   } catch (error) {
@@ -128,10 +141,16 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:reference", async (req, res, next) => {
   try {
+    const existingOrder = await Order.findOne({ reference: toReference(req.params.reference) });
+
+    if (!existingOrder) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
     const payload = normalizePayload({
       ...req.body,
       reference: req.params.reference
-    });
+    }, existingOrder.customerId ? { _id: existingOrder.customerId } : null);
     const order = await Order.findOneAndUpdate(
       { reference: toReference(req.params.reference) },
       payload,
@@ -140,10 +159,6 @@ router.put("/:reference", async (req, res, next) => {
         runValidators: true
       }
     );
-
-    if (!order) {
-      return res.status(404).json({ error: "Order not found" });
-    }
 
     res.json(mapOrder(order));
   } catch (error) {

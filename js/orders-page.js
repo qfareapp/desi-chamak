@@ -133,6 +133,28 @@
         }
     }
 
+    async function loadMyOrders(initialLoad) {
+        if (!window.DesiChamakOrders || !window.DesiChamakOrders.readMine) {
+            return;
+        }
+
+        setStatus("Loading your account orders...", false);
+
+        try {
+            var orders = await window.DesiChamakOrders.readMine();
+            renderOrders(orders);
+            setStatus(orders.length ? "Your account orders are loaded." : "No orders found for this account yet.", false);
+        } catch (error) {
+            renderOrders([]);
+            setStatus(
+                initialLoad
+                    ? "Sign in to your account or search using order reference, email, or phone."
+                    : (error.message || "Unable to load account orders."),
+                Boolean(!initialLoad)
+            );
+        }
+    }
+
     function bindForm() {
         var form = document.getElementById("customer-orders-form");
 
@@ -144,19 +166,33 @@
         var emailField = document.getElementById("customer-order-email");
         var phoneField = document.getElementById("customer-order-phone");
         var context = readCustomerContext();
+        var session = window.DesiChamakAuth && window.DesiChamakAuth.current
+            ? window.DesiChamakAuth.current()
+            : null;
 
         referenceField.value = context.reference || "";
-        emailField.value = context.email || "";
-        phoneField.value = context.phone || "";
+        emailField.value = (context.email || (session && session.email) || "");
+        phoneField.value = (context.phone || (session && session.phone) || "");
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
+
+            if (!referenceField.value.trim() && !emailField.value.trim() && !phoneField.value.trim() && session) {
+                loadMyOrders(false);
+                return;
+            }
+
             loadOrders({
                 reference: referenceField.value.trim(),
                 email: emailField.value.trim(),
                 phone: phoneField.value.trim()
             }, false);
         });
+
+        if (session) {
+            loadMyOrders(true);
+            return;
+        }
 
         loadOrders({
             reference: context.reference || "",

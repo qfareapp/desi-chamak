@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Track your Desi Chamak orders">
-    <meta name="keywords" content="Desi Chamak, orders, order tracking">
+    <meta name="description" content="Create or sign into your Desi Chamak account">
+    <meta name="keywords" content="Desi Chamak, account, sign in, register">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Desi Chamak | Orders</title>
+    <title>Desi Chamak | Account</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,28 +35,27 @@
             <a href="./index.html">Desi Chamak</a>
         </div>
         <div id="mobile-menu-wrap"></div>
-        <nav class="header__menu mobile-only">
-            <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./shop.html">Shop</a></li>
-                <li class="active"><a href="./orders.html">Orders</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="offcanvas__auth">
+            <a href="./account.html">Sign in</a>
+            <a href="./wishlist.html">Wishlist</a>
+            <a href="./orders.html">Orders</a>
+        </div>
     </div>
 
     <header class="header">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
-                    <div class="header__logo brand-mark"><a href="./index.html">Desi Chamak</a></div>
+                    <div class="header__logo brand-mark">
+                        <a href="./index.html">Desi Chamak</a>
+                    </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
                             <li><a href="./index.html">Home</a></li>
                             <li><a href="./shop.html">Shop</a></li>
-                            <li class="active"><a href="./orders.html">Orders</a></li>
+                            <li><a href="./orders.html">Orders</a></li>
                             <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
@@ -64,6 +63,7 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
+                            <a href="./account.html">Sign in</a>
                             <a href="./wishlist.html">Wishlist</a>
                             <a href="./orders.html">Orders</a>
                         </div>
@@ -85,54 +85,104 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Orders</span>
+                        <span>Account</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <section class="shop-cart spad">
+    <section class="account-page spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h4>Your Orders</h4>
-                        <p>Track order status using your order reference, email, or phone.</p>
+                        <h4>Your Account</h4>
+                        <p>Create your own Desi Chamak login and manage orders using your credentials.</p>
+                    </div>
+                    <p id="account-status" class="account-status" hidden></p>
+                </div>
+            </div>
+            <div id="account-guest-view">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="account-card">
+                            <h5>Create Account</h5>
+                            <form id="account-register-form" class="checkout__form" novalidate>
+                                <div class="checkout__form__input">
+                                    <p>First Name <span>*</span></p>
+                                    <input type="text" name="firstName" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Last Name <span>*</span></p>
+                                    <input type="text" name="lastName" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    <input type="email" name="email" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Phone</p>
+                                    <input type="text" name="phone">
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Password <span>*</span></p>
+                                    <input type="password" name="password" minlength="6" required>
+                                </div>
+                                <button type="submit" class="site-btn">Create account</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="account-card">
+                            <h5>Sign In</h5>
+                            <form id="account-login-form" class="checkout__form" novalidate>
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    <input type="email" name="email" required>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Password <span>*</span></p>
+                                    <input type="password" name="password" required>
+                                </div>
+                                <button type="submit" class="site-btn">Sign in</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <form id="customer-orders-form" class="checkout__form mb-4" novalidate>
+            <div id="account-member-view" hidden>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__form__input">
-                            <p>Order Reference</p>
-                            <input type="text" id="customer-order-reference" placeholder="DC-1234567890">
+                    <div class="col-lg-8">
+                        <div class="account-card account-card--member">
+                            <h5 id="account-member-name">Desi Chamak Customer</h5>
+                            <ul class="account-summary">
+                                <li><strong>Email:</strong> <span id="account-member-email">-</span></li>
+                                <li><strong>Phone:</strong> <span id="account-member-phone">-</span></li>
+                            </ul>
+                            <div class="account-actions">
+                                <a href="./orders.html" class="site-btn">View orders</a>
+                                <a href="./checkout.html" class="site-btn site-btn--ghost">Go to checkout</a>
+                                <button type="button" id="account-logout-btn" class="site-btn site-btn--ghost">Sign out</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__form__input">
-                            <p>Email</p>
-                            <input type="email" id="customer-order-email" placeholder="you@example.com">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__form__input">
-                            <p>Phone</p>
-                            <input type="text" id="customer-order-phone" placeholder="9876543210">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <button type="submit" class="site-btn">View Orders</button>
-                        <p id="orders-page-status" class="mt-3 mb-0"></p>
                     </div>
                 </div>
-            </form>
-            <div class="row" id="customer-orders-list">
-                <div class="col-12"><div class="text-center p-5 border">Loading orders...</div></div>
             </div>
         </div>
     </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright__text">
+                        <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Desi Chamak. Crafted with heart for women who love oxidised shine.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
@@ -154,10 +204,9 @@
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/api-base.js"></script>
     <script src="js/cart.js"></script>
-    <script src="js/orders.js"></script>
     <script src="js/wishlist.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/orders-page.js"></script>
+    <script src="js/account-page.js"></script>
 </body>
 </html>

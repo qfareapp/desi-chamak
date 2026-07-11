@@ -3,6 +3,14 @@
         return window.DesiChamakApi ? window.DesiChamakApi.base() : "/api";
     }
 
+    function getAuthHeaders(extraHeaders) {
+        if (window.DesiChamakAuth && window.DesiChamakAuth.authHeaders) {
+            return window.DesiChamakAuth.authHeaders(extraHeaders);
+        }
+
+        return extraHeaders || {};
+    }
+
     function formatId(value) {
         return String(value || "")
             .trim()
@@ -99,7 +107,12 @@
     }
 
     async function request(path, options) {
-        var response = await fetch(getApiBase() + path, options || {});
+        var requestOptions = options || {};
+        var response = await fetch(getApiBase() + path, {
+            method: requestOptions.method || "GET",
+            headers: getAuthHeaders(requestOptions.headers),
+            body: requestOptions.body
+        });
         var payload = await response.json().catch(function () {
             return {};
         });
@@ -127,6 +140,11 @@
         }
 
         var payload = await request("/orders" + (params.toString() ? "?" + params.toString() : ""));
+        return sortOrders((payload || []).map(normalizeOrder).filter(Boolean));
+    }
+
+    async function readMyOrders() {
+        var payload = await request("/orders?mine=true");
         return sortOrders((payload || []).map(normalizeOrder).filter(Boolean));
     }
 
@@ -200,6 +218,7 @@
 
     window.DesiChamakOrders = {
         read: readOrders,
+        readMine: readMyOrders,
         createOrder: createOrder,
         updateOrder: updateOrder,
         metrics: getMetrics

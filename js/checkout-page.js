@@ -88,6 +88,29 @@
         });
     }
 
+    function hydrateFromAccount(form) {
+        var session = window.DesiChamakAuth && window.DesiChamakAuth.current
+            ? window.DesiChamakAuth.current()
+            : null;
+
+        if (!session) {
+            return;
+        }
+
+        [
+            { name: "firstName", value: session.firstName },
+            { name: "lastName", value: session.lastName },
+            { name: "email", value: session.email },
+            { name: "phone", value: session.phone }
+        ].forEach(function (entry) {
+            var field = form.querySelector("[name='" + entry.name + "']");
+
+            if (field && !field.value.trim()) {
+                field.value = entry.value || "";
+            }
+        });
+    }
+
     function bindDraftPersistence(form) {
         form.addEventListener("input", function () {
             writeDraft(getFormData(form));
@@ -220,6 +243,7 @@
         }
 
         hydrateForm(form, readDraft());
+        hydrateFromAccount(form);
         bindDraftPersistence(form);
         bindCheckoutSubmit(form);
         renderOrderSummary(window.DesiChamakCart ? window.DesiChamakCart.read() : []);
