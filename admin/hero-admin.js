@@ -117,7 +117,7 @@
 
     function openHeroCropModal(card, file) {
         if (!window.Cropper) {
-            setHeroUploadStatus(card, "Cropper library did not load. Refresh the page and try again.", true);
+            setHeroUploadStatus(card, "Image cropper failed to load. The admin page now expects local vendor files in admin/vendor/cropperjs.", true);
             return;
         }
 
