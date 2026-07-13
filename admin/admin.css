@@ -582,6 +582,10 @@ body {
     grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
 }
 
+.split-layout--customers {
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+}
+
 .order-detail-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -629,6 +633,28 @@ body {
     padding: 14px 0 18px;
     font-size: 16px;
     font-weight: 600;
+}
+
+.customer-detail-block {
+    background: #121624;
+    border: 1px solid #1f2331;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+}
+
+.customer-detail-block .label {
+    color: #9ba2b3;
+    margin-bottom: 6px;
+}
+
+.customer-detail-block h4 {
+    margin: 0 0 8px;
+    color: #fff;
+}
+
+.customer-order-links {
+    padding-top: 4px;
 }
 
 .split-layout--orders {

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Customers</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><a class="nav-link" href="orders.html"><span class="fa fa-shopping-bag"></span> Orders</a></li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li class="active"><a class="nav-link" href="customers.html"><span class="fa fa-users"></span> Customers</a></li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <button type="button" class="admin-nav-overlay" data-admin-nav-close aria-label="Close navigation"></button>
+        <main class="content">
+            <header class="topbar">
+                <button type="button" class="admin-nav-toggle" data-admin-nav-toggle><span class="fa fa-bars"></span><span>Menu</span></button>
+                <div>
+                    <h1>Customers</h1>
+                    <p>Registered customer accounts and their live order activity</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="stat-grid">
+                <div class="card section-stat">
+                    <p class="label">Registered customers</p>
+                    <h3 id="customers-stat-total">0</h3>
+                    <small class="muted">All signed up accounts</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Active buyers</p>
+                    <h3 id="customers-stat-buyers">0</h3>
+                    <small class="muted">Customers with at least one order</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Orders placed</p>
+                    <h3 id="customers-stat-orders">0</h3>
+                    <small class="muted">Total orders from signed-in customers</small>
+                </div>
+                <div class="card section-stat">
+                    <p class="label">Revenue</p>
+                    <h3 id="customers-stat-revenue">Rs. 0</h3>
+                    <small class="muted">Tracked customer spend</small>
+                </div>
+            </section>
+
+            <section class="split-layout split-layout--customers">
+                <div>
+                    <section class="card table-card">
+                        <div class="card-header">
+                            <h4>Customer Accounts</h4>
+                            <small class="muted" id="customers-status">Loading customer accounts...</small>
+                        </div>
+                        <div class="table-dark-shell">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Orders</th>
+                                        <th>Spent</th>
+                                        <th>Joined</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-table-body">
+                                    <tr>
+                                        <td colspan="6" class="text-center muted">Loading customers...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <aside>
+                    <section class="card form-card">
+                        <div class="card-header">
+                            <h4>Customer Detail</h4>
+                            <small class="muted">Select a customer to inspect account activity</small>
+                        </div>
+                        <div id="customer-detail-empty" class="muted">No customer selected yet.</div>
+                        <div id="customer-detail-panel" hidden>
+                            <div class="customer-detail-block">
+                                <p class="label">Customer</p>
+                                <h4 id="customer-detail-name">-</h4>
+                                <div class="muted" id="customer-detail-email">-</div>
+                                <div class="muted" id="customer-detail-phone">-</div>
+                            </div>
+                            <div class="order-detail-grid">
+                                <div class="order-detail-block">
+                                    <p class="label">Joined</p>
+                                    <strong id="customer-detail-created">-</strong>
+                                </div>
+                                <div class="order-detail-block">
+                                    <p class="label">Last Order</p>
+                                    <strong id="customer-detail-last-order">-</strong>
+                                </div>
+                            </div>
+                            <div class="order-detail-grid">
+                                <div class="order-detail-block">
+                                    <p class="label">Total Orders</p>
+                                    <strong id="customer-detail-orders">0</strong>
+                                </div>
+                                <div class="order-detail-block">
+                                    <p class="label">Total Spent</p>
+                                    <strong id="customer-detail-spent">Rs. 0</strong>
+                                </div>
+                            </div>
+                            <div class="customer-order-links">
+                                <a class="btn btn-ghost btn-sm" href="orders.html" id="customer-view-orders-link">View orders page</a>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </section>
+        </main>
+    </div>
+    <script src="./admin-nav.js"></script>
+    <script src="../js/api-base.js"></script>
+    <script src="./customers-admin.js"></script>
+</body>
+</html>
