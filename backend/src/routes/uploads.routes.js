@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 
 const { getCloudinaryClient } = require("../config/cloudinary");
+const { requireAdmin } = require("../utils/adminAuth");
 
 const router = express.Router();
 const upload = multer({
@@ -28,7 +29,7 @@ function uploadToCloudinary(fileBuffer, options) {
   });
 }
 
-router.post("/image", upload.single("image"), async (req, res, next) => {
+router.post("/image", requireAdmin, upload.single("image"), async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Select an image file to upload." });

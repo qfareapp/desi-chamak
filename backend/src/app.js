@@ -2,8 +2,10 @@ const express = require("express");
 const cors = require("cors");
 
 const healthRoutes = require("./routes/health.routes");
+const adminAuthRoutes = require("./routes/admin-auth.routes");
 const authRoutes = require("./routes/auth.routes");
 const customerRoutes = require("./routes/customers.routes");
+const instagramRoutes = require("./routes/instagram.routes");
 const orderRoutes = require("./routes/orders.routes");
 const productRoutes = require("./routes/products.routes");
 const contentRoutes = require("./routes/content.routes");
@@ -23,8 +25,10 @@ app.get("/", (_req, res) => {
     message: "Desi Chamak backend is running",
     docs: {
       health: "/api/health",
+      adminAuth: "/api/admin-auth",
       auth: "/api/auth",
       customers: "/api/customers",
+      instagram: "/api/instagram-feed",
       orders: "/api/orders",
       products: "/api/products",
       sections: "/api/content-sections"
@@ -33,8 +37,10 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/api/health", healthRoutes);
+app.use("/api/admin-auth", adminAuthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/customers", customerRoutes);
+app.use("/api/instagram-feed", instagramRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/content-sections", contentRoutes);

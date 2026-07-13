@@ -2,6 +2,7 @@ const express = require("express");
 
 const Order = require("../models/Order");
 const { findCustomerFromRequest } = require("../utils/auth");
+const { requireAdmin, isAdminAuthenticated } = require("../utils/adminAuth");
 
 const router = express.Router();
 
@@ -107,6 +108,12 @@ router.get("/", async (_req, res, next) => {
       filter["billing.phone"] = String(_req.query.phone).trim();
     }
 
+    if (!_req.query.mine && !_req.query.reference && !_req.query.email && !_req.query.phone) {
+      if (!isAdminAuthenticated(_req)) {
+        return res.status(401).json({ error: "Admin authentication required." });
+      }
+    }
+
     const orders = await Order.find(filter).sort({ createdAt: -1 });
     res.json(orders.map(mapOrder));
   } catch (error) {
@@ -139,7 +146,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:reference", async (req, res, next) => {
+router.put("/:reference", requireAdmin, async (req, res, next) => {
   try {
     const existingOrder = await Order.findOne({ reference: toReference(req.params.reference) });
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Login</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body class="admin-login-body">
+    <main class="admin-login-shell">
+        <section class="admin-login-card">
+            <div class="admin-login-brand">Desi Chamak Admin</div>
+            <h1>Admin Login</h1>
+            <p class="muted">Sign in to access orders, products, website content, and uploads.</p>
+            <form id="adminLoginForm" class="mt-4">
+                <div class="form-group">
+                    <label for="adminEmail">Admin Email</label>
+                    <input type="email" class="form-control" id="adminEmail" placeholder="admin@desichamak.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" class="form-control" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-ox btn-block" id="adminLoginBtn">Login</button>
+            </form>
+            <div class="form-note mt-4" id="adminLoginStatus">Default credentials work until you replace `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `backend/.env`.</div>
+        </section>
+    </main>
+    <script src="../js/api-base.js"></script>
+    <script src="./login.js"></script>
+</body>
+</html>

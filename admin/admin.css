@@ -5,6 +5,40 @@ body {
     margin: 0;
 }
 
+.admin-login-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.admin-login-shell {
+    width: 100%;
+    max-width: 460px;
+}
+
+.admin-login-card {
+    background: #161a25;
+    border: 1px solid #1f2331;
+    border-radius: 18px;
+    padding: 32px 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+}
+
+.admin-login-brand {
+    color: #d6b27f;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.admin-login-card h1 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 28px;
+}
+
 .admin-shell {
     display: flex;
     min-height: 100vh;
@@ -175,6 +209,22 @@ body {
     padding: 10px 14px;
     border-radius: 12px;
     color: #e7ecf3;
+}
+
+.user-chip__email {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-logout-btn {
+    border: 1px solid rgba(214, 178, 127, 0.34);
+    background: transparent;
+    color: #d6b27f;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
 }
 
 .user-chip .fa {
@@ -586,6 +636,10 @@ body {
     grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
 }
 
+.split-layout--instagram {
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+}
+
 .order-detail-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -655,6 +709,49 @@ body {
 
 .customer-order-links {
     padding-top: 4px;
+}
+
+.instagram-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.instagram-admin-card {
+    display: block;
+    background: #121624;
+    border: 1px solid #1f2331;
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #e7ecf3;
+}
+
+.instagram-admin-card__image {
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.instagram-admin-card__meta {
+    padding: 12px;
+}
+
+.instagram-admin-card__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #d6b27f;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.instagram-admin-card__meta p {
+    margin: 0;
+    color: #c7cdd9;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .split-layout--orders {

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi Chamak Admin | Instagram Feed</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="sidebar">
+            <div class="brand">Desi Chamak Admin</div>
+            <ul>
+                <li><a class="nav-link" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                <li><a class="nav-link" href="orders.html"><span class="fa fa-shopping-bag"></span> Orders</a></li>
+                <li><a class="nav-link" href="products.html"><span class="fa fa-tags"></span> Products</a></li>
+                <li><a class="nav-link" href="customers.html"><span class="fa fa-users"></span> Customers</a></li>
+                <li><span class="fa fa-bar-chart"></span> Analytics</li>
+                <li>
+                    <details class="nav-group" open>
+                        <summary><span class="fa fa-globe"></span> Website</summary>
+                        <ul class="subnav">
+                            <li class="sub-item"><a class="sub-link" href="website.html"><span class="fa fa-th-large"></span> Overview</a></li>
+                            <li class="sub-item"><a class="sub-link" href="hero.html"><span class="fa fa-picture-o"></span> Hero Section</a></li>
+                            <li class="sub-item"><a class="sub-link" href="new-arrivals.html"><span class="fa fa-star-o"></span> New Arrivals</a></li>
+                            <li class="sub-item"><a class="sub-link" href="curated.html"><span class="fa fa-object-group"></span> Curated Sets</a></li>
+                            <li class="sub-item"><a class="sub-link" href="best-sellers.html"><span class="fa fa-line-chart"></span> Best Sellers</a></li>
+                            <li class="sub-item"><a class="sub-link" href="gift-ready.html"><span class="fa fa-gift"></span> Gift Ready</a></li>
+                            <li class="sub-item"><a class="sub-link" href="promotions.html"><span class="fa fa-bullhorn"></span> Banners & Offers</a></li>
+                            <li class="sub-item active"><a class="sub-link" href="instagram.html"><span class="fa fa-instagram"></span> Instagram Feed</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><span class="fa fa-cog"></span> Settings</li>
+            </ul>
+        </aside>
+        <button type="button" class="admin-nav-overlay" data-admin-nav-close aria-label="Close navigation"></button>
+        <main class="content">
+            <header class="topbar">
+                <button type="button" class="admin-nav-toggle" data-admin-nav-toggle><span class="fa fa-bars"></span><span>Menu</span></button>
+                <div>
+                    <h1>Instagram Feed</h1>
+                    <p>Connect your Instagram professional account and show the latest posts on the homepage</p>
+                </div>
+                <div class="user-chip">
+                    <span class="fa fa-user-circle"></span>
+                    <span>Admin</span>
+                </div>
+            </header>
+
+            <section class="split-layout split-layout--instagram">
+                <div class="card form-card">
+                    <div class="card-header">
+                        <h4>Feed Settings</h4>
+                        <small class="muted">Meta professional account credentials stay server-side through the backend proxy</small>
+                    </div>
+                    <form id="instagramForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="instagramHeading">Section Heading</label>
+                                <input type="text" class="form-control" id="instagramHeading" placeholder="Follow Us On Instagram">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="instagramLimit">Post Count</label>
+                                <input type="number" class="form-control" id="instagramLimit" min="1" max="12" placeholder="6">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="instagramUsername">Instagram Username</label>
+                                <input type="text" class="form-control" id="instagramUsername" placeholder="desichamak">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="instagramProfileUrl">Profile URL</label>
+                                <input type="text" class="form-control" id="instagramProfileUrl" placeholder="https://www.instagram.com/desichamak/">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="instagramUserId">Instagram User ID</label>
+                            <input type="text" class="form-control" id="instagramUserId" placeholder="1784...">
+                            <small class="muted d-block mt-2">Use the Instagram professional account user ID from Meta's Instagram platform.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="instagramAccessToken">Access Token</label>
+                            <textarea class="form-control" id="instagramAccessToken" rows="4" placeholder="Paste your Meta Instagram access token here"></textarea>
+                            <small class="muted d-block mt-2">This token is only used by the backend proxy and is not exposed on the homepage.</small>
+                        </div>
+                        <div class="inline-actions">
+                            <button type="submit" class="btn btn-ox" id="saveInstagramBtn">Save Feed Settings</button>
+                            <button type="button" class="btn btn-ghost" id="previewInstagramBtn">Fetch Latest Posts</button>
+                        </div>
+                    </form>
+                </div>
+                <aside class="preview-panel">
+                    <h4>Connection Notes</h4>
+                    <ul>
+                        <li>Use a professional Instagram account connected through Meta.</li>
+                        <li>The homepage reads the feed from the backend proxy, not directly from Instagram.</li>
+                        <li>If the API is unavailable, the site can fall back to the saved image list.</li>
+                    </ul>
+                    <div class="form-note" id="instagramStatus">Loading Instagram feed settings...</div>
+                </aside>
+            </section>
+
+            <section class="card table-card">
+                <div class="card-header">
+                    <h4>Homepage Preview</h4>
+                    <small class="muted">Latest posts returned by the backend feed proxy</small>
+                </div>
+                <div class="instagram-admin-grid" id="instagramPreviewGrid">
+                    <div class="muted">Loading preview...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="./admin-auth.js"></script>
+    <script src="./admin-nav.js"></script>
+    <script src="../js/api-base.js"></script>
+    <script src="./instagram-admin.js"></script>
+</body>
+</html>

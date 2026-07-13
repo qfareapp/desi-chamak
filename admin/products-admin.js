@@ -102,7 +102,7 @@
 
     function openProductCropModal(card, file) {
         if (!window.Cropper) {
-            setMediaStatus(card, "Cropper library did not load. Refresh the page and try again.", true);
+            setMediaStatus(card, "Image cropper failed to load. The admin page now expects local vendor files in admin/vendor/cropperjs.", true);
             return;
         }
 

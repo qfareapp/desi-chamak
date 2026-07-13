@@ -3,10 +3,11 @@ const express = require("express");
 const Customer = require("../models/Customer");
 const Order = require("../models/Order");
 const { serializeCustomer } = require("../utils/auth");
+const { requireAdmin } = require("../utils/adminAuth");
 
 const router = express.Router();
 
-router.get("/", async (_req, res, next) => {
+router.get("/", requireAdmin, async (_req, res, next) => {
   try {
     const customers = await Customer.find().sort({ createdAt: -1 }).lean();
     const customerIds = customers.map((customer) => customer._id);

@@ -13,8 +13,9 @@ This backend adds MongoDB-backed APIs for the static ecommerce admin and storefr
 
 1. Copy `.env.example` to `.env`
 2. Set `MONGODB_URI` to your MongoDB connection string
-3. Install dependencies with `npm install`
-4. Run the server with `npm run dev`
+3. Set `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` for the admin panel login
+4. Install dependencies with `npm install`
+5. Run the server with `npm run dev`
 
 ## Endpoints
 
